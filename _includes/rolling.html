@@ -1,0 +1,60 @@
+{% assign rolling_files = site.static_files | where_exp: "item", "item.path
+contains '/images/rolling/'" | map: "path" %} {% assign first_image =
+rolling_files | first %}
+
+<div
+  class="rolling-container"
+  data-images="{{ rolling_files | jsonify | escape }}"
+  data-baseurl="{{ site.baseurl }}"
+>
+  {% if first_image %}
+  <img src="{{ site.baseurl }}{{ first_image }}" />
+  {% endif %}
+</div>
+
+<script>
+  (function () {
+    const container = document.currentScript.previousElementSibling;
+    const img = container.querySelector("img");
+
+    // If the folder was empty and no image rendered, abort
+    if (!img) return;
+
+    console.log(container.dataset);
+    const rawPaths = JSON.parse(container.dataset.images || "[]");
+
+    // If there is only 1 image (or 0), there is nothing to cycle
+    if (rawPaths.length <= 1) return;
+
+    const baseUrl = container.dataset.baseurl || "";
+    const images = rawPaths.map((path) => baseUrl + path);
+
+    let cycleInterval;
+    let currentIndex = 0;
+    const originalSrc = img.src;
+
+    const startCycle = () => {
+      clearInterval(cycleInterval);
+      cycleInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        img.src = images[currentIndex];
+      }, 250);
+    };
+
+    const stopCycle = () => {
+      clearInterval(cycleInterval);
+      // Snap back to the very first image when they let go
+      img.src = originalSrc;
+      currentIndex = 0;
+    };
+
+    // Desktop
+    img.addEventListener("mouseenter", startCycle);
+    img.addEventListener("mouseleave", stopCycle);
+
+    // Mobile
+    img.addEventListener("touchstart", startCycle, { passive: true });
+    img.addEventListener("touchend", stopCycle);
+    img.addEventListener("touchcancel", stopCycle);
+  })();
+</script>
