@@ -178,7 +178,7 @@ img {
 .drift-item {
   margin: 0;
   box-sizing: border-box;
-  font-size: clamp(18px, 1.2vw, 22px);
+  font-size: clamp(8px, 1.2vw, 22px);
   line-height: 1.4; }
 
 .drift-item--sm {
