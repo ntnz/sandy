@@ -17,7 +17,7 @@
 
     if (!menuIsOpen) {
       // 1. Prepare to open
-      toggleImg.src = "/assets/images/header/close.svg";
+      toggleImg.src = "{{ '/images/header/close.svg";
       menuOverlay.classList.add("is-visible"); // Ensure CSS displays it
 
       // 2. Pixelate IN
@@ -27,7 +27,7 @@
       });
     } else {
       // 1. Prepare to close
-      toggleImg.src = "/assets/images/header/menu.svg";
+      toggleImg.src = "{{ '/images/header/menu.svg";
 
       // 2. Pixelate OUT
       pixelReveal.animate("out", () => {

@@ -2,7 +2,7 @@
 layout: default
 ---
 
-{% include hero.html img="/assets/images/work/hover_images/buoy_cover_hover.jpg"
+{% include hero.html img="{{ '/images/work/hover_images/buoy_cover_hover.jpg"
 %}
 
 <div class="container">
@@ -20,7 +20,7 @@ layout: default
 
 <div id="gallery-container">
   <img
-    src="/assets/images/work/case_studies/buoy/buoy_casestudy_01.jpg"
+    src="{{ '/images/work/case_studies/buoy/buoy_casestudy_01.jpg" | relative_url }}"
     class="drift-item drift-item--md"
     draggable="false"
   />
