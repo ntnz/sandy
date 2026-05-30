@@ -1,5 +1,5 @@
 {% assign rolling_files = site.static_files | where_exp: "item", "item.path
-contains '/images/rolling/'" | map: "path" %} {% assign first_image =
+contains '/images/home/'" | map: "path" %} {% assign first_image =
 rolling_files | first %}
 
 <div
@@ -38,14 +38,11 @@ rolling_files | first %}
       cycleInterval = setInterval(() => {
         currentIndex = (currentIndex + 1) % images.length;
         img.src = images[currentIndex];
-      }, 250);
+      }, 100);
     };
 
     const stopCycle = () => {
       clearInterval(cycleInterval);
-      // Snap back to the very first image when they let go
-      img.src = originalSrc;
-      currentIndex = 0;
     };
 
     // Desktop

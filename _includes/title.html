@@ -1,0 +1,20 @@
+<section class="title-block">
+  <aside class="title-meta">
+    <h1 class="title-heading">{{ include.heading }}</h1>
+
+    {% if include.date %}
+    <p class="title-date">{{ include.date }}</p>
+    {% endif %} {% if include.roles %}
+    <ul class="title-roles">
+      {% assign roles_array = include.roles | split: ", " %} {% for role in
+      roles_array %}
+      <li>{{ role }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </aside>
+
+  <article class="title-description">
+    <p>{{ include.description }}</p>
+  </article>
+</section>

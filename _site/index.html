@@ -2,18 +2,36 @@
   <head>
     <meta charset="UTF-8" />
     <title>Sandy</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- the float code -->
+    <!-- TODO make this a local asset not CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="/assets/js/floating.js"></script>
+
+    <script src="/assets/js/pixel-reveal.js"></script>
+    <script src="/assets/js/pixel-transition.js"></script>
   </head>
   <body>
-     
+    <header class="header">
+  <img class="header__logo" src="/assets/images/header/sandy.svg" />
+</header>
+
+<button role="button" id="menu-toggle-button">
+  <img src="/assets/images/header/menu.svg" id="menu-toggle-image" />
+</button>
+
+
+    <main> 
 
 <div
   class="rolling-container"
-  data-images="[&quot;/assets/images/rolling/01.svg&quot;,&quot;/assets/images/rolling/02.svg&quot;,&quot;/assets/images/rolling/03.svg&quot;]"
+  data-images="[&quot;/assets/images/home/4_fromages.svg&quot;,&quot;/assets/images/home/abhaya_libre.svg&quot;,&quot;/assets/images/home/bangla_mn.svg&quot;,&quot;/assets/images/home/basteleur.svg&quot;,&quot;/assets/images/home/beast.svg&quot;,&quot;/assets/images/home/bianzhidai_base.svg&quot;,&quot;/assets/images/home/bianzhidai_ring.svg&quot;,&quot;/assets/images/home/chevalier_stripes.svg&quot;,&quot;/assets/images/home/ds-digital.svg&quot;,&quot;/assets/images/home/florderuina.svg&quot;,&quot;/assets/images/home/garamond_terrible.svg&quot;,&quot;/assets/images/home/helvetica.svg&quot;,&quot;/assets/images/home/inter.svg&quot;,&quot;/assets/images/home/lovelace_script.svg&quot;,&quot;/assets/images/home/pilowlava.svg&quot;,&quot;/assets/images/home/proxima_nova.svg&quot;,&quot;/assets/images/home/roboto_terrible.svg&quot;,&quot;/assets/images/home/times_new_roman.svg&quot;,&quot;/assets/images/home/zapf_dingbats.svg&quot;,&quot;/assets/images/home/ヒラギノ角ゴ_stdn.svg&quot;]"
   data-baseurl=""
 >
   
-  <img src="/assets/images/rolling/01.svg" />
+  <img src="/assets/images/home/4_fromages.svg" />
   
 </div>
 
@@ -43,14 +61,11 @@
       cycleInterval = setInterval(() => {
         currentIndex = (currentIndex + 1) % images.length;
         img.src = images[currentIndex];
-      }, 250);
+      }, 100);
     };
 
     const stopCycle = () => {
       clearInterval(cycleInterval);
-      // Snap back to the very first image when they let go
-      img.src = originalSrc;
-      currentIndex = 0;
     };
 
     // Desktop
@@ -64,5 +79,53 @@
   })();
 </script>
 
+</main>
+
+    <div id="menu-overlay" class="menu-overlay">
+  <nav class="menu-overlay__nav">
+    <ul class="menu-overlay__list">
+      
+      <li class="menu-overlay__item">
+        <a
+          href="/"
+          class="menu-overlay__link menu-overlay__link--active"
+        >
+          Home
+        </a>
+      </li>
+      
+      <li class="menu-overlay__item">
+        <a
+          href="/work/"
+          class="menu-overlay__link "
+        >
+          Work
+        </a>
+      </li>
+      
+      <li class="menu-overlay__item">
+        <a
+          href="/about/"
+          class="menu-overlay__link "
+        >
+          About
+        </a>
+      </li>
+      
+      <li class="menu-overlay__item">
+        <a
+          href="/contact/"
+          class="menu-overlay__link "
+        >
+          Contact
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
+</div>
+
   </body>
+
+  <script src="/assets/js/menu.js"></script>
 </html>

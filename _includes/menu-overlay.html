@@ -1,0 +1,16 @@
+<div id="menu-overlay" class="menu-overlay">
+  <nav class="menu-overlay__nav">
+    <ul class="menu-overlay__list">
+      {% for item in site.data.navigation %}
+      <li class="menu-overlay__item">
+        <a
+          href="{{ item.url | relative_url }}"
+          class="menu-overlay__link {% if page.url == item.url %}menu-overlay__link--active{% elsif page.url contains item.url and item.url != '/' %}menu-overlay__link--active{% endif %}"
+        >
+          {{ item.name }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</div>

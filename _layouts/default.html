@@ -1,0 +1,25 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sandy</title>
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- the float code -->
+    <!-- TODO make this a local asset not CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="{{ '/assets/js/floating.js' | relative_url }}"></script>
+
+    <script src="{{ '/assets/js/pixel-reveal.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/pixel-transition.js' | relative_url }}"></script>
+  </head>
+  <body>
+    {% include header.html %}
+
+    <main>{{content}}</main>
+
+    {% include menu-overlay.html %}
+  </body>
+
+  <script src="{{ '/assets/js/menu.js' | relative_url }}"></script>
+</html>

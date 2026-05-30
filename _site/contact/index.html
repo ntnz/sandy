@@ -1,0 +1,76 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sandy</title>
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- the float code -->
+    <!-- TODO make this a local asset not CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="/assets/js/floating.js"></script>
+
+    <script src="/assets/js/pixel-reveal.js"></script>
+    <script src="/assets/js/pixel-transition.js"></script>
+  </head>
+  <body>
+    <header class="header">
+  <img class="header__logo" src="/assets/images/header/sandy.svg" />
+</header>
+
+<button role="button" id="menu-toggle-button">
+  <img src="/assets/images/header/menu.svg" id="menu-toggle-image" />
+</button>
+
+
+    <main>contact
+</main>
+
+    <div id="menu-overlay" class="menu-overlay">
+  <nav class="menu-overlay__nav">
+    <ul class="menu-overlay__list">
+      
+      <li class="menu-overlay__item">
+        <a
+          href="/"
+          class="menu-overlay__link "
+        >
+          Home
+        </a>
+      </li>
+      
+      <li class="menu-overlay__item">
+        <a
+          href="/work/"
+          class="menu-overlay__link "
+        >
+          Work
+        </a>
+      </li>
+      
+      <li class="menu-overlay__item">
+        <a
+          href="/about/"
+          class="menu-overlay__link "
+        >
+          About
+        </a>
+      </li>
+      
+      <li class="menu-overlay__item">
+        <a
+          href="/contact/"
+          class="menu-overlay__link menu-overlay__link--active"
+        >
+          Contact
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
+</div>
+
+  </body>
+
+  <script src="/assets/js/menu.js"></script>
+</html>
