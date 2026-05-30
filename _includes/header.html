@@ -5,7 +5,12 @@
   />
 </header>
 
-<button role="button" id="menu-toggle-button">
+<button
+  role="button"
+  id="menu-toggle-button"
+  data-close-img="{{ '/assets/images/header/close.svg' | relative_url }}"
+  data-open-img="{{ '/assets/images/header/menu.svg' | relative_url }}"
+>
   <img
     src="{{ '/assets/images/header/menu.svg' | relative_url }}"
     id="menu-toggle-image"

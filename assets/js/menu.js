@@ -1,7 +1,9 @@
-(() => {
+window.addEventListener("load", () => {
   const toggleBtn = document.getElementById("menu-toggle-button");
   const toggleImg = document.getElementById("menu-toggle-image");
   const menuOverlay = document.getElementById("menu-overlay");
+  const closeImgPath = toggleBtn.dataset.closeImg;
+  const openImgPath = toggleBtn.dataset.openImg;
 
   if (!toggleBtn || !menuOverlay) return;
 
@@ -17,7 +19,7 @@
 
     if (!menuIsOpen) {
       // 1. Prepare to open
-      toggleImg.src = "{{ '/images/header/close.svg";
+      toggleImg.src = closeImgPath;
       menuOverlay.classList.add("is-visible"); // Ensure CSS displays it
 
       // 2. Pixelate IN
@@ -27,7 +29,7 @@
       });
     } else {
       // 1. Prepare to close
-      toggleImg.src = "{{ '/images/header/menu.svg";
+      toggleImg.src = openImgPath;
 
       // 2. Pixelate OUT
       pixelReveal.animate("out", () => {
@@ -39,4 +41,4 @@
   };
 
   toggleBtn.addEventListener("click", toggleMenu);
-})();
+});
