@@ -1,0 +1,69 @@
+---
+layout: default
+
+hero_image: "/assets/images/work/case_studies/music/music_headerimage.jpg"
+project_heading: "MUSIC, VISUALS & TOUCH"
+project_date: "September 2025 to October 2025 [8 Weeks]"
+project_roles: "GRAPHIC DESIGNER, RESEARCHER, TACTILE DESIGNER, BOOKBINDER, METAL STAMPER, ARTIST"
+project_description: 
+  - "This project was a response a university brief that called to investigate a self-led and experiment-based project to answer a crafted research question within the field of media design. Through this, an exploration was conducted on how music can be transformed into a broader sensory experience through book design. The exploration centred itself through emotional and multi-sensory design practices to encourage richer, more meaningful user experiences, particularly by pushing the boundaries of tactile experience in physical book design and cultivating it as a meaningful rather than purely functional compositional element."
+  - "Through this, a hi-fi prototype was produced, creating an outcome that transforms the song “Don’t Leave Too Soon” by Little Simz into a tactile and visual experience through the means of personal interpretation, to facilitate an enhanced emotional and sonic journey and encourage a deeper understanding of the song itself."
+
+case_studies:
+  - columns:
+      - heading: "Problem"
+        paragraphs:
+          - "How might book design be used to capture a multi-sensory and emotional design experience that explores how a song can be transformed into a wider sensory journey?"
+      - heading: "Approach"
+        paragraphs:
+          - "Throughout this project, emotional design methodology was utilised, along with analogue techniques, to produce an outcome, with the goal of creating a successful crossover between tactile and visual experiences within a multi-sensory book to convey a selected song. This was investigated through a series of four key experiments exploring material selection and manipulation, as well as binding techniques, to produce a final artefact."
+          - "Firstly, the target audience was identified as young music enthusiasts; next, the core emotions of the song were identified and used to investigate correlating materials, which were then tested to understand music-material correlation. This indicated that translating music into tactile experiences is subjective, or at the very least, incredibly complex."
+          - "An interpretative approach was then taken, and page design was explored deeply to see if pages can effectively convey meaning through their form, rather than merely serving as a carrier for print. Lace was selected to represent themes of hope and care, along with the soft string sections of the song, while aluminium was explored to portray the hard jungle beat and themes of struggle and pain, while paper was utilised to create meaning through textures and visuals via material manipulation. This found that pages can convey meaning through their structural form, and this can be used to push the meaning and depth of page design further."
+          - "Binding the selected materials was the next challenge, where a single-sheet, lay-flat method was favoured to cater to the mixed material selection and metal book-ring binding was found to offer the most pleasant tactile, visual, and functional experience for the range of materials. Through this, the importance of prioritising book pages, rather than the binding, to craft the emotional experience of a book is key, as the binding is there to provide function. Although the binding could be developed into a more emotive experience if the criteria of the method were not so restrictive, i.e. the ability to fold book pages if there were no metal pages."
+    images:
+      - "/assets/images/work/case_studies/music/music_casestudy_01.jpg"
+      - "/assets/images/work/case_studies/music/music_casestudy_02.jpg"
+      - "/assets/images/work/case_studies/music/music_casestudy_03.jpg"
+      - "/assets/images/work/case_studies/music/music_casestudy_04.jpg"
+
+  - columns:
+      - heading: "Output"
+        paragraphs:
+          - "The final step of the process was to craft a cohesive book design. A series of page designs were developed, focusing on utilising a limited set of materials and colours to help to ensure that different page designs were coherent, while offering a breadth of visual and tactile experiences to enhance user engagement with the absence of printed graphics."
+      - heading: ""
+        paragraphs:
+          - "This was done by utilising aluminium (in two forms: sheet metal and foil), paper, white lace, and a white transparent plastic material, creating a colour palette of white and silver to illustrate the raw emotion of the song, while utilising different techniques to manipulate the materials, along with including written material, to create a variety of touch and visual based experiences."
+    images:
+      - "/assets/images/work/case_studies/music/music_casestudy_05.jpg"
+      - "/assets/images/work/case_studies/music/music_casestudy_06.jpg"
+
+  - columns:
+      - heading: "Outcome"
+        paragraphs:
+          - "The process of this project highlighted the complexity of music and demonstrated how a single song can carry a range of emotions and concepts that require deep exploration to convey."
+      - heading: ""
+        paragraphs:
+          - "The final book design successfully demonstrates that music can be conveyed through textile materials to produce a visual and tactile translation that creates a richer, more meaningful and emotive experience for users, however the translation is highly subjective and complex, which crafts an impressionistic rather than objective lens for the project."
+    images:
+      - "/assets/images/work/case_studies/music/music_casestudy_07.jpg"
+      - "/assets/images/work/case_studies/music/music_casestudy_08.jpg"
+      - "/assets/images/work/case_studies/music/music_casestudy_09.jpg"
+      - "/assets/images/work/case_studies/music/music_casestudy_10.jpg"
+---
+{% include hero.html img=page.hero_image %}
+
+<div class="container">
+  {%
+    include title.html
+    heading=page.project_heading
+    date=page.project_date
+    roles=page.project_roles
+    description=page.project_description
+  %}
+
+  {% for study in page.case_studies %}
+    {% include case-study.html columns=study.columns images=study.images %}
+  {% endfor %}
+
+  {% include project-nav.html %}
+</div>

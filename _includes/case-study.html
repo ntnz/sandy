@@ -1,0 +1,27 @@
+<div class="case-study">
+  <div class="case-study__sticky-text">
+    {% for column in include.columns %}
+      <div class="case-study__text-column">
+        {% if column.heading != null %}
+          <h3 class="case-study__heading">
+            {{ column.heading | default: '&nbsp;' }}
+          </h3>
+        {% endif %}
+        {% for paragraph in column.paragraphs %}
+          <p class="case-study__paragraph">{{ paragraph }}</p>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="case-study__images">
+    {% for img_url in include.images %}
+      <img
+        src="{{ img_url | relative_url }}"
+        alt=""
+        class="case-study__img"
+        loading="lazy"
+      >
+    {% endfor %}
+  </div>
+</div>

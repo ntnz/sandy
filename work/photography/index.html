@@ -1,0 +1,49 @@
+---
+layout: default
+
+hero_image: "/assets/images/work/case_studies/photography/photography_headerimage.jpg"
+project_heading: "PHOTOGRAPHY"
+project_date: "Awarded ‘Best Photo Essay’ by Auckland Festival of Photography 2026"
+project_description: 
+  - "My photography primarily focuses on documenting Aotearoa's local music scene, along with exploring portraiture as a medium of capturing expression and identity, Through music photography, I aim to take photos that dig deep and capture the raw, passionate and energetic nature of the scene, while portraits pose as an opportunity for creative expression, capturing a sense of self through a single image."
+
+case_studies:
+  - columns:
+      - heading: "Approach"
+        paragraphs:
+          - "A core goal behind the photographs I capture is to make people feel something; whether it’s through the depth and composition of the image, captured movement, facial expressions or textures."
+      - heading: ""
+        paragraphs:
+          - "I believe the beauty in being able to freeze moments in time through photographs is that you can relive those captured moments and also give people who weren’t there the opportunity to feel what it was like to be there, which is an incredibly special thing."
+    images:
+      - "/assets/images/work/case_studies/photography/photography_casestudy_01.jpg"
+      - "/assets/images/work/case_studies/photography/photography_casestudy_02.jpg"
+      - "/assets/images/work/case_studies/photography/photography_casestudy_03.jpg"
+      - "/assets/images/work/case_studies/photography/photography_casestudy_04.jpg"
+      - "/assets/images/work/case_studies/photography/photography_casestudy_05.jpg"
+      - "/assets/images/work/case_studies/photography/photography_casestudy_06.jpg"
+      - "/assets/images/work/case_studies/photography/photography_casestudy_07.jpg"
+      - "/assets/images/work/case_studies/photography/photography_casestudy_08.jpg"
+      - "/assets/images/work/case_studies/photography/photography_casestudy_09.jpg"
+      - "/assets/images/work/case_studies/photography/photography_casestudy_10.jpg"
+      - "/assets/images/work/case_studies/photography/photography_casestudy_11.jpg"
+      - "/assets/images/work/case_studies/photography/photography_casestudy_12.jpg"
+
+---
+{% include hero.html img=page.hero_image %}
+
+<div class="container">
+  {%
+    include title.html
+    heading=page.project_heading
+    date=page.project_date
+    roles=page.project_roles
+    description=page.project_description
+  %}
+
+  {% for study in page.case_studies %}
+    {% include case-study.html columns=study.columns images=study.images %}
+  {% endfor %}
+
+  {% include project-nav.html %}
+</div>

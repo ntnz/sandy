@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 <div id="gallery-container">
   <img
     src="{{ '/assets/images/about/about_name.svg' | relative_url }}"
@@ -9,7 +8,7 @@ layout: default
     draggable="false"
     data-start-x="5"
     data-start-y="63"
-  />
+  >
 
   <img
     src="{{ '/assets/images/about/about_photo.jpg' | relative_url }}"
@@ -17,30 +16,27 @@ layout: default
     draggable="false"
     data-start-x="50"
     data-start-y="39"
-  />
+  >
 
   <p class="drift-item drift-item--xsm" data-start-x="73" data-start-y="25">
-    I’m a passionate graphic designer based in Aotearoa, who traverses between
-    the worlds of analogue and digital design. My strengths lie within
-    typography and crafting bold and unconventional design solutions, as well as
+    I’m a passionate graphic designer based in Aotearoa, who traverses between the worlds of analogue and digital
+    design. My strengths lie within typography and crafting bold and unconventional design solutions, as well as
     photography, which allows me to create independent bodies of work.
   </p>
 
   <p class="drift-item drift-item--sm" data-start-x="65" data-start-y="42">
-    Through my research-led and exploratory design approach, I often enjoy
-    coupling visual experiences with tactility while using music to inspire my
-    designs. Emotion typically centres itself at the heart of my creations,
-    while also taking concept-driven paths to create depth and meaning within my
-    work. Through this, I aim to craft experimental and boundary-pushing designs
-    that develop original and meaningful solutions, guided by curiosity,
-    expression, and consideration.
+    Through my research-led and exploratory design approach, I often enjoy coupling visual experiences with tactility
+    while using music to inspire my designs. Emotion typically centres itself at the heart of my creations, while also
+    taking concept-driven paths to create depth and meaning within my work. Through this, I aim to craft experimental
+    and boundary-pushing designs that develop original and meaningful solutions, guided by curiosity, expression, and
+    consideration.
   </p>
 </div>
 
 <script>
-  window.addEventListener("load", () => {
+  window.addEventListener('load', () => {
     const drifter = new FloatingEnvironment();
-    const interactiveElements = document.querySelectorAll(".drift-item");
+    const interactiveElements = document.querySelectorAll('.drift-item');
 
     interactiveElements.forEach((element) => {
       // 1. Read the exact coordinates from the HTML data attributes

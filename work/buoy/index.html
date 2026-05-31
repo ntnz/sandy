@@ -1,56 +1,64 @@
 ---
 layout: default
----
 
-{% include hero.html img="{{ '/images/work/hover_images/buoy_cover_hover.jpg"
-%}
+hero_image: "/assets/images/work/case_studies/buoy/buoy_headerimage.jpg"
+project_heading: "BUOY"
+project_date: "April 2025 to June 2025 [8 Weeks]"
+project_roles: "GRAPHIC DESIGNER, RESEARCHER, PHOTOGRAPHER, UX/UI DESIGNER, STRATEGIST, COPYWRITER"
+project_description: "This project was crafted to answer a university brief that asked for a new magazine brand to be created to compete within Aotearoa’s magazine market. This birthed the brand, BUOY, a magazine centred around self-expression and individualism, showcasing the alternative music and style culture within Aotearoa. BUOY’s goal is to step away from convention and celebrate those who go against the grain to form their own identities in a world that values conformity. Providing a space that features the work of under-represented creatives; a voice for the unconventional."
+
+case_studies:
+  - columns:
+      - heading: "Problem"
+        paragraphs:
+          - "How might we create a magazine brand within Aotearoa's market for youth (aged 14-24) to embrace and encourage alternative expression in a world that values trends and social conformity?"
+      - heading: "Approach"
+        paragraphs:
+          - "The core of this project was based on interview findings from the target demographic of Aotearoa citizens aged 14 to 24 years old with interests in alternative culture."
+          - "Additionally, an integral part of the brand was centred around creating a sense of belonging and community to users through creating a sense of representation."
+    images:
+      - "/assets/images/work/case_studies/buoy/buoy_casestudy_01.jpg"
+      - "/assets/images/work/case_studies/buoy/buoy_casestudy_02.jpg"
+
+  - columns:
+      - heading: "Output"
+        paragraphs:
+          - "The identity of this project was heavily influenced by a variety of alternative-leaning design styles, from grunge to collage to deconstructivism, to craft an authentic visual direction with a contemporary spin to cater to the youth of the digital era in which we live today."
+          - "This took shape through developing disruptive and bold designs with strong typography, effusive photography, and layered components, overall crafting a look and feel that is both youthful and slightly edgy, while feeling current in todays world."
+      - heading: ""
+        paragraphs:
+          - "Typography was a commonplace for boundary-pushing across the magazine’s design, exploring how the shape and formation of type can be used to craft a sense of meaning throughout the pages. This sometimes looked like pushing the edges of readability to explore the line between function and form."
+    images:
+      - "/assets/images/work/case_studies/buoy/buoy_casestudy_03.jpg"
+      - "/assets/images/work/case_studies/buoy/buoy_casestudy_04.jpg"
+      - "/assets/images/work/case_studies/buoy/buoy_casestudy_05.jpg"
+
+  - columns:
+      - heading: "Outcome"
+        paragraphs:
+          - "This project exhibits the weight of importance on creating media in which youth can explore and belong within their authentic selves."
+      - heading: ""
+        paragraphs:
+          - "Through embracing identity freedom and daring youth to go against the grain, BUOY provides a platform for unconventional voices and conversations to be heard."
+    images:
+      - "/assets/images/work/case_studies/buoy/buoy_casestudy_06.jpg"
+      - "/assets/images/work/case_studies/buoy/buoy_casestudy_07.jpg"
+      - "/assets/images/work/case_studies/buoy/buoy_casestudy_08.jpg"
+      - "/assets/images/work/case_studies/buoy/buoy_casestudy_09.jpg"
+      - "/assets/images/work/case_studies/buoy/buoy_casestudy_10.jpg"
+---
+{% include hero.html img=page.hero_image %}
 
 <div class="container">
-  {% include title.html heading="BUOY" date="April 2025 to June 2025 [8 Weeks]"
-  roles="GRAPHIC DESIGNER, RESEARCHER, PHOTOGRAPHER, UX/UI DESIGNER, STRATEGIST,
-  COPYWRITER" description="This project was crafted to answer a university brief
-  that asked for a new magazine brand to be created to compete within Aotearoa’s
-  magazine market. This birthed the brand, BUOY, a magazine centred around
-  self-expression and individualism, showcasing the alternative music and style
-  culture within Aotearoa. BUOY’s goal is to step away from convention and
-  celebrate those who go against the grain to form their own identities in a
-  world that values conformity. Providing a space that features the work of
-  under-represented creatives; a voice for the unconventional." %}
-</div>
-
-<div id="gallery-container">
-  <img
-    src="{{ '/images/work/case_studies/buoy/buoy_casestudy_01.jpg' | relative_url }}"
-    class="drift-item drift-item--md"
-    draggable="false"
-  />
-
-  <p class="drift-item drift-item--sm">
-    Problem
-    <br />
-    <br />
-    How might we create a magazine brand within Aotearoa’s market for youth
-    (aged 14-24) to embrace and encourage alternative expression in a world that
-    values trends and social conformity?
-  </p>
-
-  <p class="drift-item drift-item--sm">
-    Approach
-    <br />
-    <br />
-    The core of this project was based on interview findings from the target
-    demographic of Aotearoa citizens aged 14 to 24 years old with interests in
-    alternative culture. These findings revealed that self-expression and
-    listening to a wide range of music are regarded as highly important pieces
-    within their lives, which led the magazine to embrace a bold and
-    unconventional visual style to capture the expressive and broad nature of
-    the alternative scene.
-    <br />
-    <br />
-    Additionally, an integral part of the brand was centred around creating a
-    sense of belonging and community to users through creating a sense of
-    representation, as connection is a basic human need, and
-    alternative-aligning people tend to find themselves alienated within popular
-    culture.
-  </p>
+  {%
+    include title.html heading=page.project_heading date=page.project_date
+    roles=page.project_roles description=page.project_description
+  %}
+  {% for study in page.case_studies %}
+    {%
+      include case-study.html columns=study.columns
+      images=study.images
+    %}
+  {% endfor %}
+  {% include project-nav.html %}
 </div>

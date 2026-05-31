@@ -1,0 +1,68 @@
+---
+layout: default
+
+hero_image: "/assets/images/work/case_studies/furore/furore_headerimage.jpg"
+project_heading: "FURORE"
+project_date: "April 2025 to June 2025 [8 Weeks]"
+project_roles: "GRAPHIC DESIGNER, RESEARCHER, Photographer, UX/UI Designer, Strategist, Copywriter"
+project_description: 
+  - "This project was a response to a brief to create a new social enterprise start-up in Aotearoa to fill an existing gap in the market and solve a current social issue. From this, Furore was developed as an association that organises, advertises and sells tickets to all-age gigs, year-round, across Aotearoa, crafting spaces for youth to meet and connect with other like-minded people, forming new relationships and strengthening communities, with the ultimate goal of helping to lessen the loneliness within young people across Aotearoa, all while keeping NZ's music scene alive and healthy."
+
+case_studies:
+  - columns:
+      - heading: "Problem"
+        paragraphs:
+          - "How can we reduce loneliness among young people (aged 15-29) in Aotearoa by paving inclusive avenues for them to connect with other like-minded young people through social activities?"
+      - heading: "Approach"
+        paragraphs:
+          - "This project stemmed from a recognition of a lack of infrastructure and events in place for youth across Aotearoa, with heightened rates of loneliness amongst people aged 15 to 29. There is a clear importance for the need for community and social events to cater to the social needs of young people in a world that is rising in non-face-to-face contact."
+          - "Additionally, from my own experiences of going to gigs within Tauranga, Kirikiriroa and Tāmaki Makaurau over the last few years, I have seen first-hand the struggle of people trying to organise all-age gigs with a lack of money to book venues, as well as a struggle to find available venues."
+          - "This correlation between increased loneliness and a lack of attention given to creating events for young people demonstrated a clear gap in the market, with music holding the ability to increase social connectedness and mood, while reducing anxiety, pinpointing all-age music events as a perfect place to alleviate youth loneliness and get them connected with other like-minded people."
+    images:
+      - "/assets/images/work/case_studies/furore/furore_casestudy_01.jpg"
+      - "/assets/images/work/case_studies/furore/furore_casestudy_02.jpg"
+
+  - columns:
+      - heading: "Output"
+        paragraphs:
+          - "The visual direction of this project was centred on a bold and energetic personality, with the brand holding strong values in connection and community, inclusivity and positivity, and confidence and passion to capture the vitality of Aotearoa’s music scene and its community."
+      - heading: ""
+        paragraphs:
+          - "This was created through a spirited, monochromatic colour palette to create impact, along with bold, warped typography to convey the depth of music, and raw, high-contrast photography to give the brand a slightly more gritty edge. This playful, yet refined direction would help the brand to stand out against competitors and connect more deeply with the pressure-free needs of Aotearoa’s youth."
+          - "Poster designs were centred around de-stigmatising loneliness and some of its associated causes to introduce and reinforce what the brand is all about, and aiming to make youth feel more comfortable, uplift them, boost their confidence and encourage them to step out and come along to a gig and meet new people."
+    images:
+      - "/assets/images/work/case_studies/furore/furore_casestudy_03.jpg"
+      - "/assets/images/work/case_studies/furore/furore_casestudy_04.jpg"
+      - "/assets/images/work/case_studies/furore/furore_casestudy_05.jpg"
+
+  - columns:
+      - heading: "Outcome"
+        paragraphs:
+          - "This project illustrates the emphatic impact that music has on connecting people together by crafting inclusive and accessible spaces for young people to find lasting communities, combatting the youth loneliness epidemic in Aotearoa, one gig at a time."
+      - heading: ""
+        paragraphs:
+          - "Through relatable and de-stigmatising messaging surrounding loneliness, Furore provides supportive spaces that foster confidence and connection, allowing youth to socialise in validating and non-judgemental environments across the country."
+    images:
+      - "/assets/images/work/case_studies/furore/furore_casestudy_06.jpg"
+      - "/assets/images/work/case_studies/furore/furore_casestudy_07.jpg"
+      - "/assets/images/work/case_studies/furore/furore_casestudy_08.jpg"
+      - "/assets/images/work/case_studies/furore/furore_casestudy_09.jpg"
+      - "/assets/images/work/case_studies/furore/furore_casestudy_10.jpg"
+---
+{% include hero.html img=page.hero_image %}
+
+<div class="container">
+  {%
+    include title.html
+    heading=page.project_heading
+    date=page.project_date
+    roles=page.project_roles
+    description=page.project_description
+  %}
+
+  {% for study in page.case_studies %}
+    {% include case-study.html columns=study.columns images=study.images %}
+  {% endfor %}
+
+  {% include project-nav.html %}
+</div>

@@ -1,5 +1,13 @@
-{% assign desktop_files = site.static_files | where_exp: "item", "item.path contains '/images/home/desktop/'" | map: "path" %}
-{% assign mobile_files = site.static_files | where_exp: "item", "item.path contains '/images/home/mobile/'" | map: "path" %}
+{% assign desktop_files = site.static_files
+  | where_exp: 'item', "item.path
+contains '/images/home/desktop/'"
+  | map: 'path'
+%}
+{% assign mobile_files = site.static_files
+  | where_exp: 'item', "item.path contains
+'/images/home/mobile/'"
+  | map: 'path'
+%}
 {% assign default_image = desktop_files | first %}
 
 <div
@@ -9,21 +17,21 @@
   data-baseurl="{{ site.baseurl }}"
 >
   {% if default_image %}
-  <img src="{{ site.baseurl }}{{ default_image }}" />
+    <img src="{{ site.baseurl }}{{ default_image }}">
   {% endif %}
 </div>
 
 <script>
   (function () {
     const container = document.currentScript.previousElementSibling;
-    const img = container.querySelector("img");
+    const img = container.querySelector('img');
 
     // If no image rendered, abort
     if (!img) return;
 
-    const rawDesktopPaths = JSON.parse(container.dataset.desktopImages || "[]");
-    const rawMobilePaths = JSON.parse(container.dataset.mobileImages || "[]");
-    const baseUrl = container.dataset.baseurl || "";
+    const rawDesktopPaths = JSON.parse(container.dataset.desktopImages || '[]');
+    const rawMobilePaths = JSON.parse(container.dataset.mobileImages || '[]');
+    const baseUrl = container.dataset.baseurl || '';
 
     const desktopImages = rawDesktopPaths.map((path) => baseUrl + path);
     const mobileImages = rawMobilePaths.map((path) => baseUrl + path);
@@ -31,13 +39,13 @@
     let cycleInterval;
     let currentIndex = 0;
     let activeImages = [];
-    
+
     // Increased time between image flips (1000ms = 1 second)
-    const cycleSpeed = 1000; 
+    const cycleSpeed = 500;
 
     // Determine which image array to use based on the breakpoint
     const updateActiveImages = () => {
-      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
       activeImages = isMobile ? mobileImages : desktopImages;
 
       if (activeImages.length > 0) {
@@ -52,7 +60,7 @@
     const startCycle = () => {
       // If there is only 1 image (or 0) for this breakpoint, nothing to cycle
       if (activeImages.length <= 1) return;
-      
+
       clearInterval(cycleInterval);
       cycleInterval = setInterval(() => {
         currentIndex = (currentIndex + 1) % activeImages.length;
@@ -66,9 +74,9 @@
 
     // 1. Initialize active images based on current screen size
     updateActiveImages();
-    
+
     // 2. Automatically start the cycle on page load
-    startCycle(); 
+    startCycle();
 
     //// Desktop: Stop on hover, resume on leave
     //img.addEventListener("mouseenter", stopCycle);
@@ -80,7 +88,7 @@
     //img.addEventListener("touchcancel", startCycle);
 
     // Listen for resize events to handle users dragging the window across the breakpoint
-    window.addEventListener("resize", () => {
+    window.addEventListener('resize', () => {
       stopCycle();
       updateActiveImages();
       startCycle();
