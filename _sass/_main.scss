@@ -27,7 +27,7 @@ $mobile-breakpoint: 768px;
 @font-face {
   font-family: "Proxima Vara";
   src: url("../fonts/proxima_vara.ttf") format("truetype");
-  font-weight: 100 900; /* Define the range of weights supported by your variable font */
+  font-weight: 100 900;
   font-display: swap;
 }
 
@@ -301,7 +301,7 @@ img {
   align-items: start;
   margin-bottom: calc(
     var(--spacer) * 4
-  ); /* Spacing between multiple case studies */
+  );
 }
 
 .case-study__sticky-text {
@@ -336,8 +336,7 @@ img {
   display: block;
 }
 
-/* Tablet and Desktop Layout */
-@media (min-width: 768px) {
+@media (min-width: $mobile-breakpoint) {
   .case-study {
     grid-template-columns: 1fr 1fr;
     gap: calc(var(--spacer) * 2);
