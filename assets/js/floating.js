@@ -15,10 +15,13 @@ class FloatingEnvironment {
 
     this.engine.gravity.y = 0;
     this.engine.gravity.x = 0;
-
     this.engine.timing.timeScale = 0.5;
 
     this.domBodies = [];
+    this.thickness = 2000;
+
+    // Buffer to ensure elements don't span 100% of the screen edge-to-edge
+    this.screenBuffer = 40;
 
     this._setupBoundaries();
     this._setupMouse();
@@ -28,31 +31,37 @@ class FloatingEnvironment {
     Runner.run(runner, this.engine);
 
     this._syncDOM();
+
+    window.addEventListener("resize", () => this._handleResize());
   }
 
   add(domElement, x, y) {
     domElement.style.position = "absolute";
     domElement.style.top = "0px";
     domElement.style.left = "0px";
-
     domElement.style.margin = "0px";
     domElement.style.transformOrigin = "center center";
-
     domElement.style.userSelect = "none";
     domElement.style.WebkitUserDrag = "none";
     domElement.style.touchAction = "none";
     domElement.style.cursor = "grab";
 
-    const rect = domElement.getBoundingClientRect();
-    const width = rect.width || 100;
-    const height = rect.height || 100;
+    // Enforce an absolute size ceiling based on the current window so elements
+    // are never larger than the physics bounding box.
+    domElement.style.maxWidth = `${window.innerWidth - this.screenBuffer}px`;
+    domElement.style.maxHeight = `${window.innerHeight - this.screenBuffer}px`;
+
+    const width = domElement.offsetWidth;
+    const height = domElement.offsetHeight;
+
+    if (width === 0 || height === 0) return;
 
     const centerX = x + width / 2;
     const centerY = y + height / 2;
 
     const body = this.Matter.Bodies.rectangle(centerX, centerY, width, height, {
-      restitution: 0.1, // Low bounce so they don't ricochet wildly
-      frictionAir: 0.1, // The "thick liquid" drag
+      restitution: 0.1,
+      frictionAir: 0.1,
       density: 0.005,
     });
 
@@ -61,7 +70,6 @@ class FloatingEnvironment {
       speed: 0.001 + Math.random() * 0.001,
     };
 
-    // Added body to the world without a constraint
     this.Matter.Composite.add(this.engine.world, [body]);
 
     this.domBodies.push({
@@ -74,43 +82,103 @@ class FloatingEnvironment {
 
   _setupBoundaries() {
     const { Bodies, Composite } = this.Matter;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const wallLength = 10000;
 
-    // Increase thickness from 50 to 2000
-    const thickness = 2000;
+    this.ground = Bodies.rectangle(0, 0, wallLength, this.thickness, {
+      isStatic: true,
+    });
+    this.ceiling = Bodies.rectangle(0, 0, wallLength, this.thickness, {
+      isStatic: true,
+    });
+    this.leftWall = Bodies.rectangle(0, 0, this.thickness, wallLength, {
+      isStatic: true,
+    });
+    this.rightWall = Bodies.rectangle(0, 0, this.thickness, wallLength, {
+      isStatic: true,
+    });
 
-    // Adjust the coordinates so the inner edge perfectly aligns with the screen edge
-    const ground = Bodies.rectangle(
-      width / 2,
-      height + thickness / 2,
-      width * 3,
-      thickness,
-      { isStatic: true },
-    );
-    const ceiling = Bodies.rectangle(
-      width / 2,
-      -(thickness / 2),
-      width * 3,
-      thickness,
-      { isStatic: true },
-    );
-    const leftWall = Bodies.rectangle(
-      -(thickness / 2),
-      height / 2,
-      thickness,
-      height * 3,
-      { isStatic: true },
-    );
-    const rightWall = Bodies.rectangle(
-      width + thickness / 2,
-      height / 2,
-      thickness,
-      height * 3,
-      { isStatic: true },
-    );
+    Composite.add(this.engine.world, [
+      this.ground,
+      this.ceiling,
+      this.leftWall,
+      this.rightWall,
+    ]);
 
-    Composite.add(this.engine.world, [ground, ceiling, leftWall, rightWall]);
+    this._handleResize();
+  }
+
+  _handleResize() {
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    // 1. Strictly bind the physical walls to the visual viewport edges.
+    this.Matter.Body.setPosition(this.ground, {
+      x: windowWidth / 2,
+      y: windowHeight + this.thickness / 2,
+    });
+    this.Matter.Body.setPosition(this.ceiling, {
+      x: windowWidth / 2,
+      y: -(this.thickness / 2),
+    });
+    this.Matter.Body.setPosition(this.leftWall, {
+      x: -(this.thickness / 2),
+      y: windowHeight / 2,
+    });
+    this.Matter.Body.setPosition(this.rightWall, {
+      x: windowWidth + this.thickness / 2,
+      y: windowHeight / 2,
+    });
+
+    // 2. Dynamically scale the physics bodies to match the newly calculated CSS sizes
+    this.domBodies.forEach((item) => {
+      const body = item.physicsBody;
+
+      // Update the ceiling limit before taking the new measurement
+      item.domElement.style.maxWidth = `${windowWidth - this.screenBuffer}px`;
+      item.domElement.style.maxHeight = `${windowHeight - this.screenBuffer}px`;
+
+      const newWidth = item.domElement.offsetWidth;
+      const newHeight = item.domElement.offsetHeight;
+
+      const scaleX = newWidth / item.width;
+      const scaleY = newHeight / item.height;
+
+      if (scaleX !== 1 || scaleY !== 1) {
+        this.Matter.Body.scale(body, scaleX, scaleY);
+        item.width = newWidth;
+        item.height = newHeight;
+      }
+
+      // 3. Prevent items from falling out of bounds
+      const halfWidth = item.width / 2;
+      const halfHeight = item.height / 2;
+
+      let newX = body.position.x;
+      let newY = body.position.y;
+      let requiresRepositioning = false;
+
+      // X-axis clamp
+      if (newX - halfWidth < 0) {
+        newX = halfWidth;
+        requiresRepositioning = true;
+      } else if (newX + halfWidth > windowWidth) {
+        newX = windowWidth - halfWidth;
+        requiresRepositioning = true;
+      }
+
+      // Y-axis clamp
+      if (newY - halfHeight < 0) {
+        newY = halfHeight;
+        requiresRepositioning = true;
+      } else if (newY + halfHeight > windowHeight) {
+        newY = windowHeight - halfHeight;
+        requiresRepositioning = true;
+      }
+
+      if (requiresRepositioning) {
+        this.Matter.Body.setPosition(body, { x: newX, y: newY });
+      }
+    });
   }
 
   _setupMouse() {
@@ -119,10 +187,7 @@ class FloatingEnvironment {
     const mouse = Mouse.create(document.body);
     this.mouseConstraint = MouseConstraint.create(this.engine, {
       mouse: mouse,
-      constraint: {
-        stiffness: 0.9, // Direct, tight grip with no rubber-band lag
-        render: { visible: false },
-      },
+      constraint: { stiffness: 0.9, render: { visible: false } },
     });
 
     Composite.add(this.engine.world, this.mouseConstraint);
@@ -141,14 +206,34 @@ class FloatingEnvironment {
   _setupDriftLogic() {
     this.Matter.Events.on(this.engine, "beforeUpdate", () => {
       const time = this.engine.timing.timestamp;
+      const maxVelocity = 10;
 
       this.domBodies.forEach((item) => {
         const body = item.physicsBody;
 
-        // Do not apply idle drift if the user is actively dragging it
+        if (
+          Math.abs(body.velocity.x) > maxVelocity ||
+          Math.abs(body.velocity.y) > maxVelocity
+        ) {
+          this.Matter.Body.setVelocity(body, {
+            x:
+              Math.sign(body.velocity.x) *
+              Math.min(Math.abs(body.velocity.x), maxVelocity),
+            y:
+              Math.sign(body.velocity.y) *
+              Math.min(Math.abs(body.velocity.y), maxVelocity),
+          });
+        }
+
+        if (Math.abs(body.angularVelocity) > 0.1) {
+          this.Matter.Body.setAngularVelocity(
+            body,
+            Math.sign(body.angularVelocity) * 0.1,
+          );
+        }
+
         if (this.mouseConstraint.body === body) return;
 
-        // Apply a barely perceptible force just to keep them from freezing completely
         const forceMagnitude = 0.0001 * body.mass;
         const wave = Math.sin(time * body.driftDNA.speed + body.driftDNA.seed);
 

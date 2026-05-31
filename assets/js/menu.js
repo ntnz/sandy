@@ -5,40 +5,22 @@ window.addEventListener("load", () => {
   const closeImgPath = toggleBtn.dataset.closeImg;
   const openImgPath = toggleBtn.dataset.openImg;
 
-  if (!toggleBtn || !menuOverlay) return;
-
-  // Initialize the reveal effect on your menu container
-  const pixelReveal = new PixelReveal("menu-overlay");
-
-  let isAnimating = false;
   let menuIsOpen = false;
 
-  const toggleMenu = () => {
-    if (isAnimating) return;
-    isAnimating = true;
+  const toggleMenu = (event) => {
+    if (event) event.preventDefault();
 
     if (!menuIsOpen) {
-      // 1. Prepare to open
       toggleImg.src = closeImgPath;
-      menuOverlay.classList.add("is-visible"); // Ensure CSS displays it
-
-      // 2. Pixelate IN
-      pixelReveal.animate("in", () => {
-        isAnimating = false;
-        menuIsOpen = true;
-      });
+      menuOverlay.classList.add("is-visible");
+      menuIsOpen = true;
     } else {
-      // 1. Prepare to close
       toggleImg.src = openImgPath;
-
-      // 2. Pixelate OUT
-      pixelReveal.animate("out", () => {
-        menuOverlay.classList.remove("is-visible"); // Hide from DOM
-        isAnimating = false;
-        menuIsOpen = false;
-      });
+      menuOverlay.classList.remove("is-visible");
+      menuIsOpen = false;
     }
   };
 
-  toggleBtn.addEventListener("click", toggleMenu);
+  // Bind exclusively to pointerup
+  toggleBtn.addEventListener("pointerup", toggleMenu);
 });

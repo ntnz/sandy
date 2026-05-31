@@ -4,23 +4,29 @@ layout: default
 
 <div id="gallery-container">
   <img
-    src="{{ '/assets/images/about/about_photo.jpg' | relative_url }}"
-    class="drift-item drift-item--md"
-    draggable="false"
-  />
-  <img
     src="{{ '/assets/images/about/about_name.svg' | relative_url }}"
     class="drift-item drift-item--lg"
     draggable="false"
+    data-start-x="5"
+    data-start-y="63"
   />
 
-  <p class="drift-item drift-item--sm">
+  <img
+    src="{{ '/assets/images/about/about_photo.jpg' | relative_url }}"
+    class="drift-item drift-item--xsm border"
+    draggable="false"
+    data-start-x="50"
+    data-start-y="39"
+  />
+
+  <p class="drift-item drift-item--xsm" data-start-x="73" data-start-y="25">
     I’m a passionate graphic designer based in Aotearoa, who traverses between
     the worlds of analogue and digital design. My strengths lie within
     typography and crafting bold and unconventional design solutions, as well as
     photography, which allows me to create independent bodies of work.
-    <br />
-    <br />
+  </p>
+
+  <p class="drift-item drift-item--sm" data-start-x="65" data-start-y="42">
     Through my research-led and exploratory design approach, I often enjoy
     coupling visual experiences with tactility while using music to inspire my
     designs. Emotion typically centres itself at the heart of my creations,
@@ -36,69 +42,17 @@ layout: default
     const drifter = new FloatingEnvironment();
     const interactiveElements = document.querySelectorAll(".drift-item");
 
-    // 1. Array to store the physical boundaries of elements we have already placed
-    const occupiedSpaces = [];
-
-    // 2. Helper function to check if two rectangles overlap
-    function checkOverlap(rect1, rect2, padding = 40) {
-      // We add padding so elements don't spawn exactly touching each other
-      return (
-        rect1.x < rect2.x + rect2.width + padding &&
-        rect1.x + rect1.width + padding > rect2.x &&
-        rect1.y < rect2.y + rect2.height + padding &&
-        rect1.y + rect1.height + padding > rect2.y
-      );
-    }
-
     interactiveElements.forEach((element) => {
-      // Read the actual size of the element so we know how much space it needs
-      const rect = element.getBoundingClientRect();
-      const width = rect.width;
-      const height = rect.height;
+      // 1. Read the exact coordinates from the HTML data attributes
+      // Default to 0 if for some reason the attribute is missing
+      const pctX = parseFloat(element.dataset.startX) || 0;
+      const pctY = parseFloat(element.dataset.startY) || 0;
 
-      let startX, startY;
-      let isOverlapping = true;
-      let attempts = 0;
+      // 2. Convert those percentages into pixel values based on current screen size
+      const startX = (pctX / 100) * window.innerWidth;
+      const startY = (pctY / 100) * window.innerHeight;
 
-      // Safety valve: prevent an infinite loop if the screen is too small
-      // to hold all the elements without overlapping
-      const maxAttempts = 150;
-
-      // 3. The Validation Loop
-      while (isOverlapping && attempts < maxAttempts) {
-        // Pick a random spot (keeping it within the screen bounds)
-        startX = Math.random() * (window.innerWidth - width - 50) + 25;
-        startY = Math.random() * (window.innerHeight - height - 50) + 25;
-
-        // Define the proposed boundary for this element
-        const proposedSpace = {
-          x: startX,
-          y: startY,
-          width: width,
-          height: height,
-        };
-
-        // Check the proposed space against EVERY space we've already occupied
-        // .some() returns true if ANY of the checks return true
-        isOverlapping = occupiedSpaces.some((occupied) =>
-          checkOverlap(proposedSpace, occupied),
-        );
-
-        attempts++;
-      }
-
-      // 4. Claim the territory
-      // Once we break out of the loop, we either found a safe spot,
-      // or we ran out of attempts. Either way, record this spot so future
-      // elements have to avoid it.
-      occupiedSpaces.push({
-        x: startX,
-        y: startY,
-        width: width,
-        height: height,
-      });
-
-      // 5. Hand the safe coordinates to the physics engine
+      // 3. Hand the exact coordinates to the physics engine
       drifter.add(element, startX, startY);
     });
   });

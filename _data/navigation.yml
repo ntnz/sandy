@@ -1,11 +1,11 @@
-- name: Home
+- name: home
   url: /
 
-- name: Work
+- name: work
   url: /work/
 
-- name: About
+- name: about
   url: /about/
 
-- name: Contact
+- name: contact
   url: /contact/
