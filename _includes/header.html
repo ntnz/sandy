@@ -5,16 +5,20 @@
       src="{{ '/assets/images/header/sandy.svg' | relative_url}}"
     />
   </a>
-</header>
 
-<button
-  role="button"
-  id="menu-toggle-button"
-  data-close-img="{{ '/assets/images/header/close.svg' | relative_url }}"
-  data-open-img="{{ '/assets/images/header/menu.svg' | relative_url }}"
->
-  <img
-    src="{{ '/assets/images/header/menu.svg' | relative_url }}"
-    id="menu-toggle-image"
-  />
-</button>
+  <div class="header__items">
+    <a href="{{ '/work' | relative_url }}">work</a>
+
+    <button
+      role="button"
+      id="menu-toggle-button"
+      data-close-img="{{ '/assets/images/header/close.svg' | relative_url }}"
+      data-open-img="{{ '/assets/images/header/menu.svg' | relative_url }}"
+    >
+      <img
+        src="{{ '/assets/images/header/menu.svg' | relative_url }}"
+        id="menu-toggle-image"
+      />
+    </button>
+  </div>
+</header>

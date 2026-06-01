@@ -1,5 +1,7 @@
 class FloatingEnvironment {
-  constructor() {
+  constructor(containerElement) {
+    this.container = containerElement;
+
     const {
       Engine,
       Runner,
@@ -9,7 +11,6 @@ class FloatingEnvironment {
       MouseConstraint,
       Events,
     } = Matter;
-
     this.Matter = Matter;
     this.engine = Engine.create();
 
@@ -19,8 +20,6 @@ class FloatingEnvironment {
 
     this.domBodies = [];
     this.thickness = 2000;
-
-    // Buffer to ensure elements don't span 100% of the screen edge-to-edge
     this.screenBuffer = 40;
 
     this._setupBoundaries();
@@ -46,10 +45,11 @@ class FloatingEnvironment {
     domElement.style.touchAction = "none";
     domElement.style.cursor = "grab";
 
-    // Enforce an absolute size ceiling based on the current window so elements
-    // are never larger than the physics bounding box.
-    domElement.style.maxWidth = `${window.innerWidth - this.screenBuffer}px`;
-    domElement.style.maxHeight = `${window.innerHeight - this.screenBuffer}px`;
+    domElement.draggable = false;
+    domElement.ondragstart = () => false;
+
+    domElement.style.maxWidth = `${this.container.offsetWidth - this.screenBuffer}px`;
+    domElement.style.maxHeight = `${this.container.offsetHeight - this.screenBuffer}px`;
 
     const width = domElement.offsetWidth;
     const height = domElement.offsetHeight;
@@ -108,34 +108,31 @@ class FloatingEnvironment {
   }
 
   _handleResize() {
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
+    const width = this.container.offsetWidth;
+    const height = this.container.offsetHeight;
 
-    // 1. Strictly bind the physical walls to the visual viewport edges.
     this.Matter.Body.setPosition(this.ground, {
-      x: windowWidth / 2,
-      y: windowHeight + this.thickness / 2,
+      x: width / 2,
+      y: height + this.thickness / 2,
     });
     this.Matter.Body.setPosition(this.ceiling, {
-      x: windowWidth / 2,
+      x: width / 2,
       y: -(this.thickness / 2),
     });
     this.Matter.Body.setPosition(this.leftWall, {
       x: -(this.thickness / 2),
-      y: windowHeight / 2,
+      y: height / 2,
     });
     this.Matter.Body.setPosition(this.rightWall, {
-      x: windowWidth + this.thickness / 2,
-      y: windowHeight / 2,
+      x: width + this.thickness / 2,
+      y: height / 2,
     });
 
-    // 2. Dynamically scale the physics bodies to match the newly calculated CSS sizes
     this.domBodies.forEach((item) => {
       const body = item.physicsBody;
 
-      // Update the ceiling limit before taking the new measurement
-      item.domElement.style.maxWidth = `${windowWidth - this.screenBuffer}px`;
-      item.domElement.style.maxHeight = `${windowHeight - this.screenBuffer}px`;
+      item.domElement.style.maxWidth = `${width - this.screenBuffer}px`;
+      item.domElement.style.maxHeight = `${height - this.screenBuffer}px`;
 
       const newWidth = item.domElement.offsetWidth;
       const newHeight = item.domElement.offsetHeight;
@@ -149,7 +146,6 @@ class FloatingEnvironment {
         item.height = newHeight;
       }
 
-      // 3. Prevent items from falling out of bounds
       const halfWidth = item.width / 2;
       const halfHeight = item.height / 2;
 
@@ -157,21 +153,19 @@ class FloatingEnvironment {
       let newY = body.position.y;
       let requiresRepositioning = false;
 
-      // X-axis clamp
       if (newX - halfWidth < 0) {
         newX = halfWidth;
         requiresRepositioning = true;
-      } else if (newX + halfWidth > windowWidth) {
-        newX = windowWidth - halfWidth;
+      } else if (newX + halfWidth > width) {
+        newX = width - halfWidth;
         requiresRepositioning = true;
       }
 
-      // Y-axis clamp
       if (newY - halfHeight < 0) {
         newY = halfHeight;
         requiresRepositioning = true;
-      } else if (newY + halfHeight > windowHeight) {
-        newY = windowHeight - halfHeight;
+      } else if (newY + halfHeight > height) {
+        newY = height - halfHeight;
         requiresRepositioning = true;
       }
 
@@ -184,7 +178,7 @@ class FloatingEnvironment {
   _setupMouse() {
     const { Mouse, MouseConstraint, Composite, Events } = this.Matter;
 
-    const mouse = Mouse.create(document.body);
+    const mouse = Mouse.create(this.container);
     this.mouseConstraint = MouseConstraint.create(this.engine, {
       mouse: mouse,
       constraint: { stiffness: 0.9, render: { visible: false } },
@@ -249,12 +243,10 @@ class FloatingEnvironment {
 
   _syncDOM() {
     window.requestAnimationFrame(() => this._syncDOM());
-
     this.domBodies.forEach((item) => {
       const x = item.physicsBody.position.x - item.width / 2;
       const y = item.physicsBody.position.y - item.height / 2;
       const angle = item.physicsBody.angle;
-
       item.domElement.style.transform = `translate(${x}px, ${y}px) rotate(${angle}rad)`;
     });
   }

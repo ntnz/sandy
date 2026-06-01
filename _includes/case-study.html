@@ -2,14 +2,17 @@
   <div class="case-study__sticky-text">
     {% for column in include.columns %}
       <div class="case-study__text-column">
-        {% if column.heading != null %}
-          <h3 class="case-study__heading">
-            {{ column.heading | default: '&nbsp;' }}
-          </h3>
+        
+        {% if column.heading != null and column.heading != "" %}
+          <h5 class="case-study__heading">{{ column.heading }}</h5>
+        {% else %}
+          <h5 class="case-study__heading case-study__heading--empty">&nbsp;</h5>
         {% endif %}
+        
         {% for paragraph in column.paragraphs %}
           <p class="case-study__paragraph">{{ paragraph }}</p>
         {% endfor %}
+        
       </div>
     {% endfor %}
   </div>

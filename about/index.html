@@ -1,55 +1,81 @@
 ---
 layout: default
 ---
+
 <div id="gallery-container">
   <img
     src="{{ '/assets/images/about/about_name.svg' | relative_url }}"
     class="drift-item drift-item--lg"
     draggable="false"
-    data-start-x="5"
-    data-start-y="63"
-  >
+    data-desktop-x="1"
+    data-desktop-y="65"
+    data-mobile-x="4"
+    data-mobile-y="75"
+  />
 
   <img
     src="{{ '/assets/images/about/about_photo.jpg' | relative_url }}"
     class="drift-item drift-item--xsm border"
     draggable="false"
-    data-start-x="50"
-    data-start-y="39"
-  >
+    data-desktop-x="43"
+    data-desktop-y="35"
+    data-mobile-x="27"
+    data-mobile-y="0"
+  />
 
-  <p class="drift-item drift-item--xsm" data-start-x="73" data-start-y="25">
-    I’m a passionate graphic designer based in Aotearoa, who traverses between the worlds of analogue and digital
-    design. My strengths lie within typography and crafting bold and unconventional design solutions, as well as
+  <p
+    class="drift-item drift-item--sm"
+    data-desktop-x="70"
+    data-desktop-y="15"
+    data-mobile-x="19"
+    data-mobile-y="20"
+  >
+    I’m a passionate graphic designer based in Aotearoa, who traverses between
+    the worlds of analogue and digital design. My strengths lie within
+    typography and crafting bold and unconventional design solutions, as well as
     photography, which allows me to create independent bodies of work.
   </p>
 
-  <p class="drift-item drift-item--sm" data-start-x="65" data-start-y="42">
-    Through my research-led and exploratory design approach, I often enjoy coupling visual experiences with tactility
-    while using music to inspire my designs. Emotion typically centres itself at the heart of my creations, while also
-    taking concept-driven paths to create depth and meaning within my work. Through this, I aim to craft experimental
-    and boundary-pushing designs that develop original and meaningful solutions, guided by curiosity, expression, and
-    consideration.
+  <p
+    class="drift-item drift-item--md"
+    data-desktop-x="58"
+    data-desktop-y="32"
+    data-mobile-x="4"
+    data-mobile-y="42"
+  >
+    Through my research-led and exploratory design approach, I often enjoy
+    coupling visual experiences with tactility while using music to inspire my
+    designs. Emotion typically centres itself at the heart of my creations,
+    while also taking concept-driven paths to create depth and meaning within my
+    work. Through this, I aim to craft experimental and boundary-pushing designs
+    that develop original and meaningful solutions, guided by curiosity,
+    expression, and consideration.
   </p>
 </div>
 
 <script>
-  window.addEventListener('load', () => {
-    const drifter = new FloatingEnvironment();
-    const interactiveElements = document.querySelectorAll('.drift-item');
+  window.addEventListener("load", () => {
+    const galleryContainer = document.getElementById("gallery-container");
+    const drifter = new FloatingEnvironment(galleryContainer);
+    const interactiveElements = document.querySelectorAll(".drift-item");
+
+    const isMobile = window.innerWidth <= 768;
 
     interactiveElements.forEach((element) => {
-      // 1. Read the exact coordinates from the HTML data attributes
-      // Default to 0 if for some reason the attribute is missing
-      const pctX = parseFloat(element.dataset.startX) || 0;
-      const pctY = parseFloat(element.dataset.startY) || 0;
+      const attrX = isMobile ? "mobileX" : "desktopX";
+      const attrY = isMobile ? "mobileY" : "desktopY";
 
-      // 2. Convert those percentages into pixel values based on current screen size
+      const pctX = parseFloat(element.dataset[attrX]) || 0;
+      const pctY = parseFloat(element.dataset[attrY]) || 0;
+
       const startX = (pctX / 100) * window.innerWidth;
       const startY = (pctY / 100) * window.innerHeight;
 
-      // 3. Hand the exact coordinates to the physics engine
       drifter.add(element, startX, startY);
+    });
+
+    requestAnimationFrame(() => {
+      galleryContainer.classList.add("is-loaded");
     });
   });
 </script>
