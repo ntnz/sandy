@@ -34,10 +34,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         
-      # ---------- THIS IS THE REQUIRED NEW STEP ----------
       - name: Install WebP Tools
         run: sudo apt-get update && sudo apt-get install -y webp
-      # ---------------------------------------------------
 
       - name: Setup Ruby
         # https://github.com/ruby/setup-ruby/releases/tag/v1.207.0
