@@ -16,8 +16,20 @@
   </div>
 
   <div class="case-study__images">
-    {% for img_url in include.images %}
-      {% include image.html src=img_url class="case-study__img" %}
+    {% for media_url in include.images %}
+      {% if media_url contains '.mp4' %}
+        <video
+          src="{{ media_url | relative_url }}"
+          class="case-study__img"
+          autoplay
+          loop
+          muted
+          playsinline
+        ></video>
+
+      {% else %}
+        {% include image.html src=media_url class="case-study__img" %}
+      {% endif %}
     {% endfor %}
   </div>
 </div>
