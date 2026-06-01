@@ -1,30 +1,25 @@
-/* 1. Use a more-intuitive box-sizing model */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* 2. Remove default margins and padding so you start with a clean slate */
 * {
   margin: 0;
   padding: 0;
 }
 
-/* 3. Allow percentage-based heights in the application */
 html,
 body {
   height: 100%;
 }
 
-/* 4. Improve text rendering and set accessible line height */
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 5. Improve media defaults and remove built-in form alignment quirks */
 img,
 picture,
 video,
@@ -34,7 +29,6 @@ svg {
   max-width: 100%;
 }
 
-/* 6. Inherit fonts for form controls so they don't look stuck in 1995 */
 input,
 button,
 textarea,
@@ -42,7 +36,6 @@ select {
   font: inherit;
 }
 
-/* 7. Avoid text overflows on long words or strings */
 p,
 h1,
 h2,
@@ -53,7 +46,6 @@ h6 {
   overflow-wrap: break-word;
 }
 
-/* 8. Improve text wrap balancing for headings (Modern CSS feature) */
 h1,
 h2,
 h3,
@@ -61,13 +53,11 @@ h4 {
   text-wrap: balance;
 }
 
-/* 9. Create a root stacking context for JS frameworks (like React/Next.js) */
 #root,
 #__next {
   isolation: isolate;
 }
 
-/* 10. Respect user preferences for reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
     scroll-behavior: auto;

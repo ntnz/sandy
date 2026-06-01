@@ -26,7 +26,6 @@ contains '/images/home/desktop/'"
     const container = document.currentScript.previousElementSibling;
     const img = container.querySelector('img');
 
-    // If no image rendered, abort
     if (!img) return;
 
     const rawDesktopPaths = JSON.parse(container.dataset.desktopImages || '[]');
@@ -40,16 +39,13 @@ contains '/images/home/desktop/'"
     let currentIndex = 0;
     let activeImages = [];
 
-    // Increased time between image flips (1000ms = 1 second)
     const cycleSpeed = 500;
 
-    // Determine which image array to use based on the breakpoint
     const updateActiveImages = () => {
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
       activeImages = isMobile ? mobileImages : desktopImages;
 
       if (activeImages.length > 0) {
-        // Reset index and load the first image for the current breakpoint
         currentIndex = 0;
         img.src = activeImages[0];
       } else {
@@ -58,7 +54,6 @@ contains '/images/home/desktop/'"
     };
 
     const startCycle = () => {
-      // If there is only 1 image (or 0) for this breakpoint, nothing to cycle
       if (activeImages.length <= 1) return;
 
       clearInterval(cycleInterval);
@@ -72,22 +67,17 @@ contains '/images/home/desktop/'"
       clearInterval(cycleInterval);
     };
 
-    // 1. Initialize active images based on current screen size
     updateActiveImages();
 
-    // 2. Automatically start the cycle on page load
     startCycle();
 
-    //// Desktop: Stop on hover, resume on leave
     //img.addEventListener("mouseenter", stopCycle);
     //img.addEventListener("mouseleave", startCycle);
 
-    //// Mobile: Stop on touch, resume on release/cancel
     //img.addEventListener("touchstart", stopCycle, { passive: true });
     //img.addEventListener("touchend", startCycle);
     //img.addEventListener("touchcancel", startCycle);
 
-    // Listen for resize events to handle users dragging the window across the breakpoint
     window.addEventListener('resize', () => {
       stopCycle();
       updateActiveImages();

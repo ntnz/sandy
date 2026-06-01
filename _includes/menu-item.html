@@ -1,7 +1,4 @@
 <a href="{{ include.url | relative_url }}" class="menu-item">
-  <img src="{{ include.img | relative_url }}" class="menu-item-main-img">
-  <img
-    src="{{ include.imgHover | relative_url }}"
-    class="menu-item-hover-img"
-  >
+  {% include image.html src=include.img class="menu-item-main-img" %}
+  {% include image.html src=include.imgHover class="menu-item-hover-img" %}
 </a>

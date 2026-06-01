@@ -1,1 +1,11 @@
 port: 8080
+env:
+  JEKYLL_ENV: production
+plugins:
+  - jekyll-webp
+webp:
+  enabled: true
+  img_dir: ["/assets/images/"]
+  nested: true
+  quality: 80
+  extensions: [".jpeg", ".jpg", ".png", ".JPEG", ".JPG", ".PNG"]

@@ -1,0 +1,19 @@
+{% comment %}
+  this just wraps the webp converter
+{% endcomment %}
+{% assign original_url = include.src | relative_url %}
+{% assign webp_url = original_url | replace: '.jpg', '.webp' | replace: '.jpeg', '.webp' | replace: '.png', '.webp' %}
+
+<picture style="display: contents;">
+  <source srcset="{{ webp_url }}" type="image/webp">
+
+  <img
+    src="{{ original_url }}"
+    class="{{ include.class }}"
+    {% if include.draggable %}
+      draggable="{{ include.draggable }}"
+    {% endif %}
+    loading="{{ include.loading | default: 'lazy' }}"
+    {{ include.custom_attrs }}
+  >
+</picture>

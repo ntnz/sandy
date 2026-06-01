@@ -5,3 +5,6 @@ gem "csv"
 gem "webrick"
 gem "base64"
 gem "bigdecimal"
+group :jekyll_plugins do
+  gem 'jekyll-webp'
+end
