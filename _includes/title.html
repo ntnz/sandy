@@ -3,7 +3,13 @@
     <h1 class="title-heading">{{ include.heading }}</h1>
 
     {% if include.date %}
-      <p class="title-date">{{ include.date }}</p>
+      <p class="title-date">
+      {% if include.date_bold %}
+        <b>{{ include.date }}</b>
+      {% else %}
+        {{ include.date }}
+      {% endif %}
+      </p>
     {% endif %}
     {% if include.roles %}
       <ul class="title-roles">

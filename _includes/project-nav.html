@@ -6,17 +6,7 @@
           src="{{ '/assets/images/work/case_studies/buoy/buoy_logo.svg' | relative_url }}"
           class="project-nav__image"
           loading="eager"
-        >
-      </a>
-    </li>
-
-    <li class="project-nav__item">
-      <a href="{{ '/work/furore/' | relative_url }}" class="project-nav__link">
-        <img
-          src="{{ '/assets/images/work/case_studies/furore/furore_logo.svg' | relative_url }}"
-          class="project-nav__image"
-          loading="eager"
-        >
+        />
       </a>
     </li>
 
@@ -26,7 +16,17 @@
           src="{{ '/assets/images/work/case_studies/music/music_logo.svg' | relative_url }}"
           class="project-nav__image"
           loading="eager"
-        >
+        />
+      </a>
+    </li>
+
+    <li class="project-nav__item">
+      <a href="{{ '/work/furore/' | relative_url }}" class="project-nav__link">
+        <img
+          src="{{ '/assets/images/work/case_studies/furore/furore_logo.svg' | relative_url }}"
+          class="project-nav__image"
+          loading="eager"
+        />
       </a>
     </li>
 
@@ -35,12 +35,9 @@
         href="{{ '/work/photography/' | relative_url }}"
         class="project-nav__link"
       >
-        {%
-          include image.html
-          src="/assets/images/work/case_studies/photography/photography_headerimage.jpg"
-          class="project-nav__image"
-          loading="eager"
-        %}
+        {% include image.html
+        src="/assets/images/work/case_studies/photography/photography_headerimage.jpg"
+        class="project-nav__image" loading="eager" %}
       </a>
     </li>
   </ul>

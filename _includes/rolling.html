@@ -69,10 +69,10 @@ contains '/images/home/desktop/'"
 
     updateActiveImages();
 
-    startCycle();
+    //startCycle();
 
-    //img.addEventListener("mouseenter", stopCycle);
-    //img.addEventListener("mouseleave", startCycle);
+    img.addEventListener("mouseenter", startCycle);
+    img.addEventListener("mouseleave", stopCycle);
 
     //img.addEventListener("touchstart", stopCycle, { passive: true });
     //img.addEventListener("touchend", startCycle);

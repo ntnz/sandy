@@ -1,10 +1,12 @@
 <header class="header">
-  <a href="{{ '/' | relative_url }}">
+  {% if page.url != '/' %}
+  <a href="{{ '/' | relative_url }}" class="header__logo-button">
     <img
       id="header__logo"
       src="{{ '/assets/images/header/sandy.svg' | relative_url}}"
     />
   </a>
+  {% endif %}
 
   <div class="header__items">
     <a href="{{ '/work' | relative_url }}">work</a>
@@ -22,3 +24,30 @@
     </button>
   </div>
 </header>
+
+<script>
+  const header = document.querySelector(".header");
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      const currentScrollY = window.scrollY;
+      console.log(currentScrollY);
+
+      if (currentScrollY <= 0) {
+        header.classList.remove("header--hidden");
+        return;
+      }
+
+      if (currentScrollY > lastScrollY) {
+        header.classList.add("header--hidden");
+      } else {
+        header.classList.remove("header--hidden");
+      }
+
+      lastScrollY = currentScrollY;
+    },
+    { passive: true },
+  );
+</script>

@@ -7,5 +7,5 @@ webp:
   enabled: true
   img_dir: ["/assets/images/"]
   nested: true
-  quality: 80
+  quality: 100
   extensions: [".jpeg", ".jpg", ".png", ".JPEG", ".JPG", ".PNG"]
