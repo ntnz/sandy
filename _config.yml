@@ -1,4 +1,5 @@
 port: 8080
+baseurl: "/sandy"
 env:
   JEKYLL_ENV: production
 plugins:
