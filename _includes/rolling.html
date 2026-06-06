@@ -1,11 +1,9 @@
 {% assign desktop_files = site.static_files
-  | where_exp: 'item', "item.path
-contains '/images/home/desktop/'"
+  | where_exp: 'item', "item.path contains '/images/home/desktop/'"
   | map: 'path'
 %}
 {% assign mobile_files = site.static_files
-  | where_exp: 'item', "item.path contains
-'/images/home/mobile/'"
+  | where_exp: 'item', "item.path contains '/images/home/mobile/'"
   | map: 'path'
 %}
 {% assign default_image = desktop_files | first %}
@@ -17,7 +15,7 @@ contains '/images/home/desktop/'"
   data-baseurl="{{ site.baseurl }}"
 >
   {% if default_image %}
-    <img src="{{ site.baseurl }}{{ default_image }}">
+    <img src="{{ site.baseurl }}{{ default_image }}" draggable="false">
   {% endif %}
 </div>
 
@@ -35,11 +33,22 @@ contains '/images/home/desktop/'"
     const desktopImages = rawDesktopPaths.map((path) => baseUrl + path);
     const mobileImages = rawMobilePaths.map((path) => baseUrl + path);
 
+    // preload all images into the browser cache 
+    const preloadImages = (urls) => {
+      urls.forEach((url) => {
+        const preloader = new Image();
+        preloader.src = url;
+      });
+    };
+
+    preloadImages(desktopImages);
+    preloadImages(mobileImages);
+
     let cycleInterval;
     let currentIndex = 0;
     let activeImages = [];
 
-    const cycleSpeed = 500;
+    const cycleSpeed = 300;
 
     const updateActiveImages = () => {
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
@@ -53,14 +62,19 @@ contains '/images/home/desktop/'"
       }
     };
 
+    const nextImage = () => {
+      currentIndex = (currentIndex + 1) % activeImages.length;
+      img.src = activeImages[currentIndex];
+    };
+
     const startCycle = () => {
       if (activeImages.length <= 1) return;
 
       clearInterval(cycleInterval);
-      cycleInterval = setInterval(() => {
-        currentIndex = (currentIndex + 1) % activeImages.length;
-        img.src = activeImages[currentIndex];
-      }, cycleSpeed);
+      
+      nextImage(); 
+      
+      cycleInterval = setInterval(nextImage, cycleSpeed);
     };
 
     const stopCycle = () => {
@@ -69,19 +83,15 @@ contains '/images/home/desktop/'"
 
     updateActiveImages();
 
-    //startCycle();
-
     img.addEventListener("mouseenter", startCycle);
     img.addEventListener("mouseleave", stopCycle);
-
-    //img.addEventListener("touchstart", stopCycle, { passive: true });
-    //img.addEventListener("touchend", startCycle);
-    //img.addEventListener("touchcancel", startCycle);
+    img.addEventListener("touchstart", startCycle);
+    img.addEventListener("touchend", stopCycle);
+    img.addEventListener("touchcancel", stopCycle);
 
     window.addEventListener('resize', () => {
       stopCycle();
       updateActiveImages();
-      startCycle();
     });
   })();
 </script>

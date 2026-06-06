@@ -3,9 +3,11 @@ layout: default
 
 hero_image: "/assets/images/work/case_studies/music/music_headerimage.jpg"
 project_heading: "MUSIC, VISUALS & TOUCH"
-project_date: "September 2025 to October 2025 [8 Weeks]"
+project_date:
+project_subtitles:
+  - text: "September 2025 to October 2025 [8 Weeks]"
 project_roles: "GRAPHIC DESIGNER, RESEARCHER, TACTILE DESIGNER, BOOKBINDER, METAL STAMPER, ARTIST"
-project_description: 
+project_description:
   - "This project was a response a university brief that called to investigate a self-led and experiment-based project to answer a crafted research question within the field of media design. Through this, an exploration was conducted on how music can be transformed into a broader sensory experience through book design. The exploration centred itself through emotional and multi-sensory design practices to encourage richer, more meaningful user experiences, particularly by pushing the boundaries of tactile experience in physical book design and cultivating it as a meaningful rather than purely functional compositional element."
   - "Through this, a hi-fi prototype was produced, creating an outcome that transforms the song “Don’t Leave Too Soon” by Little Simz into a tactile and visual experience through the means of personal interpretation, to facilitate an enhanced emotional and sonic journey and encourage a deeper understanding of the song itself."
 
@@ -50,20 +52,13 @@ case_studies:
       - "/assets/images/work/case_studies/music/music_casestudy_09.jpg"
       - "/assets/images/work/case_studies/music/music_casestudy_10.jpg"
 ---
+
 {% include hero.html img=page.hero_image %}
 
 <div class="container">
-  {%
-    include title.html
-    heading=page.project_heading
-    date=page.project_date
-    roles=page.project_roles
-    description=page.project_description
-  %}
-
-  {% for study in page.case_studies %}
-    {% include case-study.html columns=study.columns images=study.images %}
-  {% endfor %}
-
-  {% include project-nav.html %}
+  {% include title.html heading=page.project_heading
+  subtitles=page.project_subtitles roles=page.project_roles
+  description=page.project_description %} {% for study in page.case_studies %}
+  {% include case-study.html columns=study.columns images=study.images %} {%
+  endfor %} {% include project-nav.html %}
 </div>

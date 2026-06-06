@@ -3,9 +3,10 @@ layout: default
 
 hero_image: "/assets/images/work/case_studies/furore/furore_headerimage.jpg"
 project_heading: "FURORE"
-project_date: "April 2025 to June 2025 [8 Weeks]"
+project_subtitles:
+  - text: "April 2025 to June 2025 [8 Weeks]"
 project_roles: "GRAPHIC DESIGNER, RESEARCHER, Photographer, UX/UI Designer, Strategist, Copywriter"
-project_description: 
+project_description:
   - "This project was a response to a brief to create a new social enterprise start-up in Aotearoa to fill an existing gap in the market and solve a current social issue. From this, Furore was developed as an association that organises, advertises and sells tickets to all-age gigs, year-round, across Aotearoa, crafting spaces for youth to meet and connect with other like-minded people, forming new relationships and strengthening communities, with the ultimate goal of helping to lessen the loneliness within young people across Aotearoa, all while keeping NZ's music scene alive and healthy."
 
 case_studies:
@@ -49,20 +50,13 @@ case_studies:
       - "/assets/images/work/case_studies/furore/furore_casestudy_09.jpg"
       - "/assets/images/work/case_studies/furore/furore_casestudy_10.jpg"
 ---
+
 {% include hero.html img=page.hero_image %}
 
 <div class="container">
-  {%
-    include title.html
-    heading=page.project_heading
-    date=page.project_date
-    roles=page.project_roles
-    description=page.project_description
-  %}
-
-  {% for study in page.case_studies %}
-    {% include case-study.html columns=study.columns images=study.images %}
-  {% endfor %}
-
-  {% include project-nav.html %}
+  {% include title.html heading=page.project_heading
+  subtitles=page.project_subtitles roles=page.project_roles
+  description=page.project_description %} {% for study in page.case_studies %}
+  {% include case-study.html columns=study.columns images=study.images %} {%
+  endfor %} {% include project-nav.html %}
 </div>

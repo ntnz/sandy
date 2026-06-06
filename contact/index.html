@@ -2,30 +2,42 @@
 layout: default
 ---
 
-<div class="contact-form__container">
-  <form
-    action="https://api.staticforms.dev/submit"
-    method="POST"
-    class="contact-form"
-  >
-    <input type="hidden" name="apiKey" value="sf_a65c4ec6f003866f5190b21c" />
-    <input type="hidden" name="subject" value="Sandy's portfolio submission" />
+<div class="container center">
+  <div class="contact-form__container">
+    <div>
+      <h2 class="text-heavy">GET IN TOUCH</h2>
+      <a href="mailto:sandy@sandyhughes.co" class="text-lg"
+        >sandy@sandyhughes.co</a
+      >
+    </div>
+    <form
+      action="https://api.staticforms.dev/submit"
+      method="POST"
+      class="contact-form"
+    >
+      <input type="hidden" name="apiKey" value="sf_a65c4ec6f003866f5190b21c" />
+      <input
+        type="hidden"
+        name="subject"
+        value="Sandy's portfolio submission"
+      />
 
-    <label
-      >Name
-      <input type="text" name="name" required />
-    </label>
+      <label
+        >Name
+        <input type="text" name="name" required />
+      </label>
 
-    <label
-      >Email
-      <input type="email" name="email" required />
-    </label>
+      <label
+        >Email
+        <input type="email" name="email" required />
+      </label>
 
-    <label
-      >Message
-      <textarea name="message" required></textarea>
-    </label>
+      <label
+        >Message
+        <textarea name="message" required></textarea>
+      </label>
 
-    <button type="submit">Send</button>
-  </form>
+      <button type="submit">Send</button>
+    </form>
+  </div>
 </div>

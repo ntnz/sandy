@@ -3,10 +3,15 @@ layout: default
 
 hero_image: "/assets/images/work/case_studies/photography/photography_headerimage.jpg"
 project_heading: "PHOTOGRAPHY"
-project_date: "Awarded ‘Best Photo Essay’ & People’s Choice at Auckland Festival of Photography 2026"
-project_date_bold: true
+project_subtitles:
+  - text: "2026 Aotearoa Music Photography Award Winner"
+    link: "https://www.photographyfestival.org.nz/awards/music-photo-award.cfm"
+    bold: true
+  - text: "Best Photo Essay & People’s Choice"
+    link: "https://www.photographyfestival.org.nz/awards/music-photo-award.cfm"
+    bold: true
 project_description: 
-  - "My photography primarily focuses on documenting Aotearoa's local music scene, along with exploring portraiture as a medium of capturing expression and identity, Through music photography, I aim to take photos that dig deep and capture the raw, passionate and energetic nature of the scene, while portraits pose as an opportunity for creative expression, capturing a sense of self through a single image."
+  - "My photography primarily focuses on documenting Aotearoa's local music scene, along with exploring portraiture as a medium of capturing expression and identity. Through music photography, I aim to take photos that dig deep and capture the raw, passionate and energetic nature of the scene, while portraits pose as an opportunity for creative expression, capturing a sense of self through a single image."
 
 case_studies:
   - columns:
@@ -29,19 +34,19 @@ case_studies:
       - "/assets/images/work/case_studies/photography/photography_casestudy_10.jpg"
       - "/assets/images/work/case_studies/photography/photography_casestudy_11.jpg"
       - "/assets/images/work/case_studies/photography/photography_casestudy_12.jpg"
+      - "/assets/images/work/case_studies/photography/photography_casestudy_13.jpg"
 
 ---
+
 {% include hero.html img=page.hero_image %}
 
 <div class="container">
-  {%
-    include title.html
-    heading=page.project_heading
-    date=page.project_date
-    date_bold=page.project_date_bold
-    roles=page.project_roles
-    description=page.project_description
-  %}
+  {% include title.html 
+     heading=page.project_heading 
+     subtitles=page.project_subtitles
+     roles=page.project_roles 
+     description=page.project_description 
+  %} 
 
   {% for study in page.case_studies %}
     {% include case-study.html columns=study.columns images=study.images %}

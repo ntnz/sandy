@@ -3,7 +3,8 @@ layout: default
 
 hero_image: "/assets/images/work/case_studies/buoy/buoy_headerimage.jpg"
 project_heading: "BUOY"
-project_date: "April 2025 to June 2025 [8 Weeks]"
+project_subtitles:
+  - text: "April 2025 to June 2025 [8 Weeks]"
 project_roles: "GRAPHIC DESIGNER, RESEARCHER, PHOTOGRAPHER, UX/UI DESIGNER, STRATEGIST, COPYWRITER"
 project_description: "This project was crafted to answer a university brief that asked for a new magazine brand to be created to compete within Aotearoa’s magazine market. This birthed the brand, BUOY, a magazine centred around self-expression and individualism, showcasing the alternative music and style culture within Aotearoa. BUOY’s goal is to step away from convention and celebrate those who go against the grain to form their own identities in a world that values conformity. Providing a space that features the work of under-represented creatives; a voice for the unconventional."
 
@@ -51,8 +52,9 @@ case_studies:
 {% include hero.html img=page.hero_image %}
 
 <div class="container">
-  {% include title.html heading=page.project_heading date=page.project_date
-  roles=page.project_roles description=page.project_description %} {% for study
-  in page.case_studies %} {% include case-study.html columns=study.columns
-  images=study.images %} {% endfor %} {% include project-nav.html %}
+  {% include title.html heading=page.project_heading
+  subtitles=page.project_subtitles roles=page.project_roles
+  description=page.project_description %} {% for study in page.case_studies %}
+  {% include case-study.html columns=study.columns images=study.images %} {%
+  endfor %} {% include project-nav.html %}
 </div>

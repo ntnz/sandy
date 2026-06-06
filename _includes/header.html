@@ -27,27 +27,44 @@
 
 <script>
   const header = document.querySelector(".header");
+  const root = document.documentElement;
+  
   let lastScrollY = window.scrollY;
+  let headerHeight = header.offsetHeight;
+
+  window.addEventListener("resize", () => {
+    headerHeight = header.offsetHeight;
+    // update immediately if at the top
+    if (window.scrollY <= 0) {
+      root.style.setProperty('--header-offset', `${headerHeight}px`);
+    }
+  });
+
+  root.style.setProperty('--header-offset', `${headerHeight}px`);
 
   window.addEventListener(
     "scroll",
     () => {
       const currentScrollY = window.scrollY;
-      console.log(currentScrollY);
 
       if (currentScrollY <= 0) {
         header.classList.remove("header--hidden");
+        root.style.setProperty('--header-offset', `${headerHeight}px`);
         return;
       }
 
       if (currentScrollY > lastScrollY) {
+        // scrolling down
         header.classList.add("header--hidden");
+        root.style.setProperty('--header-offset', '0px');
       } else {
+        // scrolling up
         header.classList.remove("header--hidden");
+        root.style.setProperty('--header-offset', `${headerHeight}px`);
       }
 
       lastScrollY = currentScrollY;
     },
-    { passive: true },
+    { passive: true }
   );
 </script>

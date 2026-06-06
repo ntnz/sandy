@@ -2,15 +2,28 @@
   <aside class="title-meta">
     <h1 class="title-heading">{{ include.heading }}</h1>
 
-    {% if include.date %}
-      <p class="title-date">
-      {% if include.date_bold %}
-        <b>{{ include.date }}</b>
-      {% else %}
-        {{ include.date }}
-      {% endif %}
-      </p>
+    {% if include.subtitles %}
+      <div class="title-subtitles">
+        {% for subtitle in include.subtitles %}
+          <p class="title-subtitle">
+            {% if subtitle.link %}
+              <a href="{{ subtitle.link }}" class="title-subtitle-link">
+            {% endif %}
+
+            {% if subtitle.bold %}
+              <b>{{ subtitle.text }}</b>
+            {% else %}
+              {{ subtitle.text }}
+            {% endif %}
+
+            {% if subtitle.link %}
+              </a>
+            {% endif %}
+          </p>
+        {% endfor %}
+      </div>
     {% endif %}
+
     {% if include.roles %}
       <ul class="title-roles">
         {% assign roles_array = include.roles | split: ', ' %}

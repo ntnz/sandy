@@ -15,7 +15,7 @@ $mobile-breakpoint: 768px;
 $color-black: #000;
 $color-white: #fff;
 $icon-size: calc(var(--header-height) - (var(--spacer) * 2));
-$nav-img-height: 90px;
+$nav-img-height: 5vh;
 $font-family-base: "Proxima Vara", sans-serif;
 
 $text-xs: clamp(0.75rem, calc(0.8vw + 0.5rem), 0.875rem);
@@ -86,21 +86,27 @@ img {
 
 h1 {
   font-size: $text-xxxl;
+  line-height: 1;
 }
 h2 {
   font-size: $text-xxl;
+  line-height: 1;
 }
 h3 {
   font-size: $text-xl;
+  line-height: 1;
 }
 h4 {
   font-size: $text-lg;
+  line-height: 1;
 }
 h5 {
   font-size: $text-base;
+  line-height: 1;
 }
 h6 {
   font-size: $text-sm;
+  line-height: 1;
 }
 .text-xxxl {
   font-size: $text-xxxl !important;
@@ -124,6 +130,15 @@ h6 {
   font-size: $text-xs !important;
 }
 
+a {
+  color: var(--color-black);
+  text-decoration: none;
+}
+
+.text-heavy {
+  font-weight: 800;
+}
+
 // utility
 .is-visible {
   display: initial !important;
@@ -131,6 +146,11 @@ h6 {
 
 .border {
   border: 2px solid var(--color-black);
+}
+
+.center {
+  flex: 1;
+  justify-content: center;
 }
 
 // layout
@@ -153,11 +173,18 @@ h6 {
   align-items: flex-end;
 
   img {
-    height: 30vw;
+    height: 28vw; // roughly 2/3 width
     width: auto;
     padding: var(--spacer);
     user-select: none;
     object-fit: contain;
+
+    // ios does annoying stuff when focusing the img
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 
     @media (max-width: $mobile-breakpoint) {
       height: auto;
@@ -206,7 +233,7 @@ h6 {
     text-decoration: none;
     color: var(--color-black);
     font-weight: bold;
-    font-size: calc(var(--header-height) / 2);
+    font-size: calc(var(--header-height) / 3);
   }
 }
 
@@ -297,7 +324,7 @@ h6 {
   }
 
   @media (max-width: $mobile-breakpoint) {
-    font-size: clamp(0.875rem, 3.5vw, 1.125rem);
+    font-size: clamp(0.8rem, 3.5vw, 1.125rem);
 
     &--xsm {
       width: 45vw;
@@ -365,6 +392,11 @@ h6 {
 // hero
 .hero-img {
   height: var(--full-height);
+
+  @media (max-width: $mobile-breakpoint) {
+    height: auto;
+    width: 100vw;
+  }
 }
 
 // title block
@@ -389,8 +421,15 @@ h6 {
     font-weight: 800;
   }
 
-  &-date {
+  &-subtitles {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacer-xs);
     margin: 0 0 var(--spacer-lg) 0;
+  }
+
+  &-subtitle {
+    margin: 0;
   }
 
   &-description p {
@@ -448,7 +487,8 @@ h6 {
 
     @media (min-width: $mobile-breakpoint) {
       position: sticky;
-      top: var(--spacer);
+      top: calc(var(--header-offset, var(--header-height)) + var(--spacer));
+      transition: top 0.3s ease-in-out;
       flex-direction: row;
       align-items: flex-start;
       gap: var(--spacer);
@@ -504,6 +544,10 @@ h6 {
     align-items: center;
     gap: var(--spacer-xl);
     list-style: none;
+
+    @media (max-width: $mobile-breakpoint) {
+      gap: var(--spacer-md);
+    }
   }
 
   &__image {
@@ -516,10 +560,14 @@ h6 {
 
 // contact form
 .contact-form__container {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--spacer-xxl);
   justify-content: center;
-  flex: 1;
+
+  @media (max-width: $mobile-breakpoint) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .contact-form {
@@ -528,7 +576,6 @@ h6 {
   gap: var(--spacer-md);
   width: 100%;
   max-width: 800px;
-  padding: var(--spacer-md);
 
   label {
     display: flex;
