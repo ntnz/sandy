@@ -1,13 +1,4 @@
 // variables
-$spacer: 1rem;
-$spacer-xs: $spacer * 0.25;
-$spacer-sm: $spacer * 0.5;
-$spacer-md: $spacer * 1.5;
-$spacer-lg: $spacer * 2;
-$spacer-xl: $spacer * 3;
-$spacer-xxl: $spacer * 4;
-$spacer-xxxl: $spacer * 5;
-
 $header-height: clamp(60px, 4.5vh, 90px);
 $container-max-width: 1368px;
 $mobile-breakpoint: 768px;
@@ -27,14 +18,14 @@ $text-xxl: clamp(2rem, calc(4vw + 1rem), 3rem);
 $text-xxxl: clamp(3rem, calc(5vw + 1rem), 4.5rem);
 
 :root {
-  --spacer: #{$spacer};
-  --spacer-xs: #{$spacer-xs};
-  --spacer-sm: #{$spacer-sm};
-  --spacer-md: #{$spacer-md};
-  --spacer-lg: #{$spacer-lg};
-  --spacer-xl: #{$spacer-xl};
-  --spacer-xxl: #{$spacer-xxl};
-  --spacer-xxxl: #{$spacer-xxxl};
+  --spacer: clamp(0.5rem, calc(0.4rem + 0.5vw), 1rem);
+  --spacer-xs: calc(var(--spacer) * 0.25);
+  --spacer-sm: calc(var(--spacer) * 0.5);
+  --spacer-md: calc(var(--spacer) * 1.5);
+  --spacer-lg: calc(var(--spacer) * 2);
+  --spacer-xl: calc(var(--spacer) * 3);
+  --spacer-xxl: calc(var(--spacer) * 4);
+  --spacer-xxxl: calc(var(--spacer) * 5);
 
   --header-height: #{$header-height};
   --full-height: calc(100vh - var(--header-height));
@@ -184,10 +175,10 @@ a {
     justify-self: flex-start;
     line-height: 0.8;
     padding: var(--spacer);
-    font-size: 3.25cqw;
+    font-size: 2.58cqw;
 
     @media (max-width: $mobile-breakpoint) {
-      font-size: 3.25cqh;
+      font-size: 2.58cqh;
       writing-mode: vertical-rl;
       transform: rotate(180deg);
       text-orientation: mixed;
