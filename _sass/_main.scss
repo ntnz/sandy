@@ -180,12 +180,14 @@ a {
     align-items: flex-end;
   }
 
-  h1 {
+  h2 {
     justify-self: flex-start;
     line-height: 0.8;
     padding: var(--spacer);
+    font-size: 3.25cqw;
 
     @media (max-width: $mobile-breakpoint) {
+      font-size: 3.25cqh;
       writing-mode: vertical-rl;
       transform: rotate(180deg);
       text-orientation: mixed;
@@ -507,6 +509,9 @@ a {
     @media (min-width: $mobile-breakpoint) {
       grid-template-columns: 1fr;
     }
+
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
   }
 
   &__sticky-text {
