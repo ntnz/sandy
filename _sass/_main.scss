@@ -444,7 +444,6 @@ a {
   &-subtitles {
     display: flex;
     flex-direction: column;
-    gap: var(--spacer-xs);
     margin: 0 0 var(--spacer-lg) 0;
   }
 
@@ -461,11 +460,12 @@ a {
   }
 
   &-roles {
-    list-style-position: inside;
+    font-weight: 800;
+    font-size: $text-base;
+    list-style: none;
     display: flex;
     flex-wrap: wrap;
     gap: 0 var(--spacer-md);
-    font-size: 0.8em;
     text-transform: uppercase;
   }
 }
@@ -491,19 +491,29 @@ a {
 .case-study {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--spacer-xl);
+  gap: var(--spacer-lg);
   align-items: start;
-  margin-bottom: var(--spacer);
+  margin-bottom: var(--spacer-lg);
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 
   @media (min-width: $mobile-breakpoint) {
     grid-template-columns: 1fr 2fr;
-    gap: var(--spacer-xxl);
+  }
+
+  &--no-text {
+    @media (min-width: $mobile-breakpoint) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__sticky-text {
     display: flex;
     flex-direction: column;
-    gap: var(--spacer-lg);
+    gap: var(--spacer-md);
+    order: 1;
 
     @media (min-width: $mobile-breakpoint) {
       position: sticky;
@@ -511,7 +521,7 @@ a {
       transition: top 0.3s ease-in-out;
       flex-direction: row;
       align-items: flex-start;
-      gap: var(--spacer);
+      order: 0;
     }
   }
 
@@ -527,7 +537,7 @@ a {
   }
 
   &__paragraph {
-    margin: 0 0 var(--spacer) 0;
+    margin: 0 0 var(--spacer-lg) 0;
 
     &:last-child {
       margin-bottom: 0;
@@ -537,7 +547,7 @@ a {
   &__images {
     display: flex;
     flex-direction: column;
-    gap: var(--spacer);
+    gap: var(--spacer-lg);
   }
 
   &__img {

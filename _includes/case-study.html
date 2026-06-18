@@ -1,19 +1,26 @@
-<div class="case-study">
-  <div class="case-study__sticky-text">
-    {% for column in include.columns %}
-      <div class="case-study__text-column">
-        {% if column.heading != null and column.heading != '' %}
-          <h5 class="case-study__heading">{{ column.heading }}</h5>
-        {% else %}
-          <h5 class="case-study__heading case-study__heading--empty">&nbsp;</h5>
-        {% endif %}
+{% assign has_text = false %}
+{% if include.columns.size > 0 %}
+  {% assign has_text = true %}
+{% endif %}
 
-        {% for paragraph in column.paragraphs %}
-          <p class="case-study__paragraph">{{ paragraph }}</p>
-        {% endfor %}
-      </div>
-    {% endfor %}
-  </div>
+<div class="case-study {% unless has_text %}case-study--no-text{% endunless %}">
+  {% if has_text %}
+    <div class="case-study__sticky-text">
+      {% for column in include.columns %}
+        <div class="case-study__text-column">
+          {% if column.heading != blank %}
+            <h5 class="case-study__heading">{{ column.heading }}</h5>
+          {% else %}
+            <h5 class="case-study__heading case-study__heading--empty">&nbsp;</h5>
+          {% endif %}
+
+          {% for paragraph in column.paragraphs %}
+            <p class="case-study__paragraph">{{ paragraph }}</p>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 
   <div class="case-study__images">
     {% for media_url in include.images %}
@@ -28,7 +35,8 @@
         ></video>
 
       {% else %}
-        {% include image.html src=media_url class="case-study__img" %}
+        {% include image.html src=media_url class="case-study__img" disable_contents=true %}
+    
       {% endif %}
     {% endfor %}
   </div>
