@@ -14,8 +14,10 @@
   data-mobile-images="{{ mobile_files | jsonify | escape }}"
   data-baseurl="{{ site.baseurl }}"
 >
+  <h1>DESIGNER +<br>PHOTOGRAPHER</h1>
+
   {% if default_image %}
-    <img src="{{ site.baseurl }}{{ default_image }}" draggable="false">
+    <img src="{{ site.baseurl }}{{ default_image }}" draggable="false" oncontextmenu="return false;">
   {% endif %}
 </div>
 
@@ -25,6 +27,12 @@
     const img = container.querySelector('img');
 
     if (!img) return;
+
+    // try hack out the contextmenu... css doesn't seem to be enough
+    img.addEventListener('contextmenu', (e) => {
+      e.preventDefault(); 
+      e.stopPropagation();
+    });
 
     const rawDesktopPaths = JSON.parse(container.dataset.desktopImages || '[]');
     const rawMobilePaths = JSON.parse(container.dataset.mobileImages || '[]');

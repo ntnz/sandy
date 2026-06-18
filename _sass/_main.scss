@@ -170,7 +170,27 @@ a {
   inset: 0;
   background-color: var(--color-white);
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+
+  @media (max-width: $mobile-breakpoint) {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+
+  h1 {
+    justify-self: flex-start;
+    line-height: 0.8;
+    padding: var(--spacer);
+
+    @media (max-width: $mobile-breakpoint) {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-orientation: mixed;
+    }
+  }
 
   img {
     height: 28vw; // roughly 2/3 width
