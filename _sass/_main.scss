@@ -18,7 +18,7 @@ $text-xxl: clamp(2rem, calc(4vw + 1rem), 3rem);
 $text-xxxl: clamp(3rem, calc(5vw + 1rem), 4.5rem);
 
 :root {
-  --spacer: clamp(0.5rem, calc(0.4rem + 0.5vw), 1rem);
+  --spacer: clamp(0.8rem, calc(0.4rem + 0.5vw), 1rem);
   --spacer-xs: calc(var(--spacer) * 0.25);
   --spacer-sm: calc(var(--spacer) * 0.5);
   --spacer-md: calc(var(--spacer) * 1.5);
@@ -166,8 +166,8 @@ a {
   align-items: flex-start;
 
   @media (max-width: $mobile-breakpoint) {
-    flex-direction: row;
-    justify-content: flex-start;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
     align-items: flex-end;
   }
 
