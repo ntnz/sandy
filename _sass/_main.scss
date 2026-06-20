@@ -178,6 +178,7 @@ a {
     font-size: 2.58cqw;
 
     @media (max-width: $mobile-breakpoint) {
+      padding-right: 0;
       font-size: 2.58cqh;
       writing-mode: vertical-rl;
       transform: rotate(180deg);
