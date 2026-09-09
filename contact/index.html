@@ -11,6 +11,7 @@ layout: default
       >
     </div>
     <form
+      id="contact-form"
       action="https://api.staticforms.dev/submit"
       method="POST"
       class="contact-form"
@@ -41,3 +42,12 @@ layout: default
     </form>
   </div>
 </div>
+
+<div
+  id="form-notification"
+  class="form-notification"
+  role="status"
+  aria-live="polite"
+></div>
+
+<script src="{{ '/assets/js/contact.js' | relative_url }}"></script>
