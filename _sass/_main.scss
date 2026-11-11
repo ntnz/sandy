@@ -417,12 +417,12 @@ a {
 .title {
   &-block {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--spacer-xl);
     margin-bottom: var(--spacer-xxxl);
 
     @media (min-width: $mobile-breakpoint) {
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
       gap: var(--spacer-xxl);
       margin-bottom: calc(var(--spacer-xxxl) * 2);
     }
@@ -430,7 +430,8 @@ a {
 
   &-heading {
     text-transform: uppercase;
-    line-height: 0.95;
+    overflow-wrap: anywhere;
+    line-height: 0.84;
     margin-bottom: var(--spacer-sm);
     font-weight: 800;
   }
